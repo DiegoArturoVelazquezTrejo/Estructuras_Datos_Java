@@ -1,0 +1,60 @@
+--- src/main/java/mx/unam/ciencias/edd/MeteSaca.java
++++ src/main/java/mx/unam/ciencias/edd/MeteSaca.java
+@@ -22,7 +22,7 @@ public abstract class MeteSaca<T> {
+          * @param elemento el elemento del nodo.
+          */
+         public Nodo(T elemento) {
+-            // Aquí va su código.
++            this.elemento = elemento;
+         }
+     }
+ 
+@@ -43,7 +43,11 @@ public abstract class MeteSaca<T> {
+      * @throws NoSuchElementException si la estructura está vacía.
+      */
+     public T saca() {
+-        // Aquí va su código.
++        if(cabeza == null) throw new NoSuchElementException("Es vacía");
++        T elemento = cabeza.elemento;
++        if(cabeza.siguiente == null) cabeza = rabo = null;
++        else cabeza = cabeza.siguiente;
++        return elemento;
+     }
+ 
+     /**
+@@ -53,7 +57,8 @@ public abstract class MeteSaca<T> {
+      * @throws NoSuchElementException si la estructura está vacía.
+      */
+     public T mira() {
+-        // Aquí va su código.
++        if(cabeza == null) throw new NoSuchElementException("Es vacía");
++        return cabeza.elemento;
+     }
+ 
+     /**
+@@ -62,7 +67,7 @@ public abstract class MeteSaca<T> {
+      *         <code>false</code> en otro caso.
+      */
+     public boolean esVacia() {
+-        // Aquí va su código.
++        return cabeza == null;
+     }
+ 
+     /**
+@@ -76,6 +81,15 @@ public abstract class MeteSaca<T> {
+         if (object == null || getClass() != object.getClass())
+             return false;
+         @SuppressWarnings("unchecked") MeteSaca<T> m = (MeteSaca<T>)object;
+-        // Aquí va su código.
++        if(m.esVacia() && this.esVacia()) return true;
++        Nodo nodo1 = cabeza;
++        Nodo nodo2 = m.cabeza;
++        while(nodo1 != null && nodo2 != null){
++          if(!nodo1.elemento.equals(nodo2.elemento)) return false;
++          nodo1 = nodo1.siguiente;
++          nodo2 = nodo2.siguiente;
++        }
++        if(nodo1 != null | nodo2 != null) return false;
++        return true;
+     }
+ }
