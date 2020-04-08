@@ -15,7 +15,7 @@ public class DibujaElmArbol{
   * @return Representación en cadena del arista
   */
   public  static  String dibujaArista(int x1, int y1, int x2, int y2){
-    return "<line x1="+x1+" y1="+y1+" x2= "+x2+" y2=" + y2 +" style='stroke:#f00; stroke-width:3'></line>";
+    return "<line x1="+x1+" y1="+y1+" x2= "+x2+" y2=" + y2 +" style='stroke:black; stroke-width:1'></line>";
   }
   /**
   * Método para dibujar en vértice del árbol binario
@@ -35,11 +35,17 @@ public class DibujaElmArbol{
         color = "Black";
         break;
       case NINGUNO:
-        color = "Gray";
+        color = "None";
         break;
     }
-    return "<circle cx= "+x+" cy= "+y+" r='25' fill="+color+"  /> <text x= "+x+" y= "+y+
-    " text-anchor='middle' fill='white' font-size='10px' font-family='Arial' dy='.3em'>"+
+    int y1 = y+2;
+    String colorletra ="";
+    if(c.equals(Color.NEGRO) || c.equals(Color.ROJO))
+      colorletra = "white";
+    else
+      colorletra = "Black";
+    return "<circle cx= "+x+" cy= "+y+" r='8' stroke='black' fill="+color+"  /> <text x= "+x+" y= "+y1+
+    " text-anchor='middle' fill="+ colorletra+" font-size='10px' font-family='Arial' dy='.1em'>"+
     vertice.get()+"</text>";
   }
   /**
@@ -51,7 +57,7 @@ public class DibujaElmArbol{
     // Genera un arreglo con la coordenada en x para cada elemento del árbol binario
     int [] coordenadas = new int[numero];
     for(int i = 0;  i < numero; i++)
-      coordenadas[i] = i*50;
+      coordenadas[i] = (i*30)+30;
     return coordenadas;
   }
   /**
@@ -74,7 +80,9 @@ public class DibujaElmArbol{
   * @param
   */
   public static String dibujaEtiqueta(int x, int y, String etiqueta){
-    return "<text x= "+x+" y= "+y+" text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.3em'>"+
+    int y1 = y-3;
+    int x1 = x-2;
+    return "<text x= "+x1+" y= "+y1+" text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+
     etiqueta+"</text>";
   }
 }

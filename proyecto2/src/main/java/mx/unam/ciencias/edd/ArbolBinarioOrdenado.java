@@ -320,7 +320,6 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>>
       accion.actua(vertice);
       dfsInOrder(vertice.derecho, accion );
     }
-
     /**
      * Realiza un recorrido DFS <em>post-order</em> en el árbol, ejecutando la
      * acción recibida en cada elemento del árbol.
