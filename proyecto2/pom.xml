@@ -45,7 +45,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.edd.proyecto2.estructuras_svg.DibujaArbol</mainClass>
+	      <mainClass>mx.unam.ciencias.edd.proyecto2.estructuras_svg.ListaColaPilaDibujable</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>

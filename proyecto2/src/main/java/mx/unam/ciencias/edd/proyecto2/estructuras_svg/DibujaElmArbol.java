@@ -48,7 +48,7 @@ public class DibujaElmArbol{
     " text-anchor='middle' fill="+ colorletra+" font-size='10px' font-family='Arial' dy='.1em'>"+
     vertice.get()+"</text>";
   }
-
+ 
   /**
   * Método que calcula la mitad de un número por nosotros
   * @param int numero

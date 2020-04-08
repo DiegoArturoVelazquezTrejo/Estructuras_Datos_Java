@@ -7,7 +7,7 @@ import mx.unam.ciencias.edd.*;
 */
 public class DibujaArbol<T extends Comparable<T>>{
   /*Cadena que contendrá la representación en SVG del árbol */
-  String arbolSVG = "<?xml version = \'1.0\' encoding = \'utf-8\' ?>\n";
+  String arbolSVG = "<?xml    version = \'1.0\' encoding = \'utf-8\' ?>\n";
   /*Lista que contendrá los elementos del árbol binario */
   Lista<T> elementos;
   /* Variable que indica si el arbol que se quiere imprimir es AVL */
@@ -199,18 +199,6 @@ public class DibujaArbol<T extends Comparable<T>>{
         der = dibujaArbol(xNueva, coordYNueva, v.derecho(), xNueva, superior);
     return  etiqueta + arista + DibujaElmArbol.dibujaNodo(xNueva,coordYNueva,v,color)+ izq + der;
   }
-  /**
-  * Vamos a probar que se imprima correctamente el arbol binario
-  * PRUEBA ÚNICAMENTE, SE TENDRÁ QUE ELIMINAR ESTE MÉTODO DESPUÉS
-  */
-  public static void main(String[] args){
-    Lista<Integer> lista = new Lista<>();
-    for(int i = 0; i < 25; i++)
-      lista.agregaFinal((int)(Math.random()*50+1));
-    DibujaArbol d = new DibujaArbol(lista);
-    String arbolR = d.dibujaArbol(EstructuraDatos.ARBOLAVL);
 
-    System.out.println(arbolR);
-  }
 
 }
