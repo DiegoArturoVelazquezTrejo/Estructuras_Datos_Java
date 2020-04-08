@@ -4,7 +4,7 @@ package mx.unam.ciencias.edd.proyecto2.estructuras_svg;
 * Estructuras de datos que implementarán de esta interfaz:
 * Lista, Cola, Pila
 */
-public class NodoGraficable{
+public class DibujaElementosNodos{
   /**
   * Método que dibuja el cuadrado del nodo correspondiente
   * @param int coordenada en x del cuadrado
@@ -12,8 +12,8 @@ public class NodoGraficable{
   * @param T elemento que irá dentro del cuadrado
   * @return Representación en cadena del cuadrado
   */
-  public static String dibujaCuadrado     (int x1, int y1, T elemento){
-
+  public static <T> String dibujaCuadrado(int x1, int y1, T elemento){
+      return "";
   }
   /**
   * Método que dibuja la flecha correspondiente hacia la derecha (para colas)
@@ -22,7 +22,7 @@ public class NodoGraficable{
   * @return Representación en cadena de la flecha
   */
   public static String dibujaFlechaDerecha(int x1, int y1){
-
+    return "";
   }
   /**
   * Método que dibuja la flecha correspondiente hacia ambas direcciones (para listas)
@@ -31,6 +31,6 @@ public class NodoGraficable{
   * @return Representación en cadena de la doble flecha
   */
   public static String dibujaDobleFlecha  (int x1, int y1){
-
+    return "";
   }
 }

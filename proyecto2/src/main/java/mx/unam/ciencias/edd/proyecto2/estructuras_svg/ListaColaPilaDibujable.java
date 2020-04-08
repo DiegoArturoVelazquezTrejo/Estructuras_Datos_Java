@@ -1,4 +1,5 @@
 package mx.unam.ciencias.edd.proyecto2.estructuras_svg;
+import mx.unam.ciencias.edd.*;
 /**
 * Clase para dibujar las estructuras de datos con nodos
 */
@@ -9,11 +10,12 @@ public abstract class ListaColaPilaDibujable{
   * @param EstructuraDatos estructura mediante la cual los datos se representarán
   * @return String representación en string svg de los datos
   */
-  public static String dibujaEstructuraDatos(Colection<T> data, EstructuraDatos tipo){
+  public static <T> String dibujaEstructuraDatos(Lista<T> data, EstructuraDatos tipo){
     // Dependiendo la estructura de datos que se pase como parámetro,
     // 1. Se creará una instancia de la estructura de datos
     // 2. Se imprimirá dependiendo si es una pila, una cola o una lista
-    // Se usará la clase de NodoGraficable para poder usar cuadrados y líneas de svg 
+    // Se usará la clase de NodoGraficable para poder usar cuadrados y líneas de svg
+    return ""; 
   }
 
 }
