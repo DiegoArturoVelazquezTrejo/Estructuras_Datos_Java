@@ -12,15 +12,13 @@ public class DibujaArbol<T extends Comparable<T>>{
   Lista<T> elementos;
   /* Variable que indica si el arbol que se quiere imprimir es AVL */
   boolean esArbolAVL = false;
-  /* Arreglo de las coordenadas en X */
-  int [] coordsX;
 
   /**
   * Método que establece las dimensiones del svg en donde se presentará el árbol
   */
   public void estableceDimensiones(){
     if(this.elementos.getLongitud() > 0)
-      this.arbolSVG+= "<svg width="+coordsX[coordsX.length-1]+10+"  height= " + elementos.getLongitud()*80+ ">";
+      this.arbolSVG+= "<svg width="+(elementos.getLongitud()*60)+"  height= " + elementos.getLongitud()*40+ ">";
   }
   /**
   * Constructor de la clase DibujaArbol
@@ -28,105 +26,126 @@ public class DibujaArbol<T extends Comparable<T>>{
   */
   public DibujaArbol(Lista<T> l){
     this.elementos = l;
-    this.coordsX = DibujaElmArbol.generaCoordenadasX(this.elementos.getLongitud());
     estableceDimensiones();
   }
 
   public String dibujaArbol(EstructuraDatos estructura){
-    // Checaremos de qué tipo de arbol se trata
+    /* En caso de no tener elementos, no se dibuja nada */
+    if(elementos.getLongitud() == 0)
+      return "";
+    /* Checaremos de qué tipo de arbol se trata */
     switch(estructura){
-      // En caso de ser un arbol ordenado, se concatena su representación en svg
+      /* En caso de ser un arbol ordenado, se concatena su representación en svg */
       case ARBOLORDENADO:
-        arbolSVG+=dibujaArbolOrdenado();
+        arbolSVG+=dibujaArbolOrdenadoCompleto(estructura);
         break;
-      // En caso de ser un arbol completo, se concatena su representación en svg
+      /* En caso de ser un arbol completo, se concatena su representación en svg */
       case ARBOLCOMPLETO:
-        arbolSVG+=dibujaArbolCompleto();
+        arbolSVG+=dibujaArbolOrdenadoCompleto(estructura);
         break;
-      // En caso de ser un arbol rojinegro, se concatena su representación en svg
+      /* En caso de ser un arbol rojinegro, se concatena su representación en svg */
       case ARBOLROJINEGRO:
-        arbolSVG+=dibujaArbolRojinegro();
+        arbolSVG+=dibujaARbolAVLRojinegro(estructura);
         break;
-      // En caso de ser un arbol avl, se concatena su representación en svg
+      /* En caso de ser un arbol avl, se concatena su representación en svg */
       case ARBOLAVL:
         esArbolAVL = true;
-        arbolSVG+=dibujaARbolAVL();
+        arbolSVG+=dibujaARbolAVLRojinegro(estructura);
         break;
     }
-    // Concatenamos la etiqueta de cierre
+    /* Concatenamos la etiqueta de cierre */
     arbolSVG+="</svg>";
     return arbolSVG;
   }
 
   /**
-  * Método que dibuja un arbol binario ordenado
+  * Método que dibuja un arbol binario ordenado / completo
   */
-  public  String dibujaArbolOrdenado(){
-      ArbolBinarioOrdenado<T> arbol = new ArbolBinarioOrdenado<>(this.elementos);
+  public  String dibujaArbolOrdenadoCompleto(EstructuraDatos estructura){
+      ArbolBinario<T> arbol;
+      if(estructura.equals(EstructuraDatos.ARBOLORDENADO))
+        arbol = new ArbolBinarioOrdenado<>(this.elementos);
+      else
+        arbol = new ArbolBinarioCompleto<>(this.elementos);
+      /* Vamos a trabajar con la raíz del arbol qeu creamos */
       VerticeArbolBinario raiz = arbol.raiz();
-      int    mitad = DibujaElmArbol.calculaMitad(0, this.elementos.getLongitud());
-      int    coordY = 30;
-      String izq = "";
-      String der = "";
+
+      /* Calculamos la cantidad de vértices que hay en el subarbol izquierdo */
+      int verticesEnIzquierdo, verticesEnDerecho;
+      verticesEnDerecho = verticesEnIzquierdo = 0;
       if(raiz.hayIzquierdo())
-        izq = dibujaArbol(coordsX, coordY, mitad, raiz.izquierdo(), 0, mitad);
+        verticesEnIzquierdo = DibujaElmArbol.cuentaVerticesSubarbol(raiz.izquierdo());
+      /* Calculamos la cantidad de vértices que hay en el subarbol derecho */
       if(raiz.hayDerecho())
-        der = dibujaArbol(coordsX, coordY, mitad, raiz.derecho(), mitad, this.elementos.getLongitud());
-      return DibujaElmArbol.dibujaNodo(coordsX[mitad], coordY, raiz, Color.NINGUNO)+ der + izq;
+        verticesEnDerecho = DibujaElmArbol.cuentaVerticesSubarbol(raiz.derecho());
+
+      /* Calculamos la coordenada en x de la raíz */
+      int xNueva = verticesEnIzquierdo*30+30;
+      /* Inicializamos la coordenada en y de la raíz */
+      int yNueva = 30;
+      /* Calculamos el límite inferior del margen del arbol */
+      int limiteInferior = 0;
+      /* Calculamos el límite supperior del margen del arbol */
+      int limiteSuperior = xNueva + (verticesEnDerecho)*30;
+
+      String izq , der;
+      izq = der = "";
+      if(raiz.hayIzquierdo())
+        izq = dibujaArbol(xNueva, yNueva, raiz.izquierdo(), limiteInferior, xNueva);
+      if(raiz.hayDerecho())
+        der = dibujaArbol(xNueva, yNueva, raiz.derecho(), xNueva, limiteSuperior);
+
+      return DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, Color.NINGUNO)+ der + izq;
   }
 
   /**
-  * Método que dibuja un arbol binario completo
+  * Método que dibuja un arbol binario avl/rojinegro
   */
-  public String dibujaArbolCompleto(){
-      ArbolBinarioCompleto<T> arbol = new ArbolBinarioCompleto<>(this.elementos);
-      VerticeArbolBinario raiz = arbol.raiz();
-      int    mitad = DibujaElmArbol.calculaMitad(0, this.elementos.getLongitud());
-      int    coordY = 30;
-      String izq = "";
-      String der = "";
-      if(raiz.hayIzquierdo())
-        izq = dibujaArbol(coordsX, coordY, mitad, raiz.izquierdo(), 0, mitad);
-      if(raiz.hayDerecho())
-        der = dibujaArbol(coordsX, coordY, mitad, raiz.derecho(), mitad, this.elementos.getLongitud());
-      return DibujaElmArbol.dibujaNodo(coordsX[mitad], coordY, raiz, Color.NINGUNO)+ der + izq;
-  }
+  public String dibujaARbolAVLRojinegro(EstructuraDatos estructura){
+    ArbolBinario<T> arbol;
+    if(estructura.equals(EstructuraDatos.ARBOLAVL))
+      arbol = new ArbolAVL<>(this.elementos);
+    else
+      arbol = new ArbolRojinegro<>(this.elementos);
+    /* Vamos a trabajar con la raíz del arbol qeu creamos */
+    VerticeArbolBinario raiz = arbol.raiz();
 
-  /**
-  * Método que dibuja un arbol binario rojinegro
-  */
-  public String dibujaArbolRojinegro(){
-      ArbolRojinegro<T> arbol = new ArbolRojinegro<>(this.elementos);
-      VerticeArbolBinario raiz = arbol.raiz();
-      int    mitad = DibujaElmArbol.calculaMitad(0, this.elementos.getLongitud());
-      int    coordY = 30;
-      String izq = "";
-      String der = "";
-      if(raiz.hayIzquierdo())
-        izq = dibujaArbol(coordsX, coordY, mitad, raiz.izquierdo(), 0, mitad);
-      if(raiz.hayDerecho())
-        der = dibujaArbol(coordsX, coordY, mitad, raiz.derecho(), mitad, this.elementos.getLongitud());
-      return DibujaElmArbol.dibujaNodo(coordsX[mitad], coordY, raiz, Color.NEGRO)+ der + izq;
-  }
-  /**
-  * Método que dibuja un arbol binario avl
-  */
-  public String dibujaARbolAVL(){
-      if(elementos.getLongitud() == 0) return "";
-      ArbolAVL<T> arbol = new ArbolAVL<>(this.elementos);
-      VerticeArbolBinario raiz = arbol.raiz();
-      int    mitad = DibujaElmArbol.calculaMitad(0, this.elementos.getLongitud());
-      int    coordY = 30;
-      // aquí necesitamos mandar a llamar la etiqueta del arbol avl
-      String balance_altura = raiz.toString().substring(raiz.toString().length()-4, raiz.toString().length());
-      String etiqueta = DibujaElmArbol.dibujaEtiqueta(coordsX[mitad]+3, coordY-9, balance_altura);
-      String izq = "";
-      String der = "";
-      if(raiz.hayIzquierdo())
-        izq = dibujaArbol(coordsX, coordY, mitad, raiz.izquierdo(), 0, mitad);
-      if(raiz.hayDerecho())
-        der = dibujaArbol(coordsX, coordY, mitad, raiz.derecho(), mitad, this.elementos.getLongitud());
-      return etiqueta + DibujaElmArbol.dibujaNodo(coordsX[mitad], coordY, raiz, Color.NINGUNO)+ der + izq;
+    /* Calculamos la cantidad de vértices que hay en el subarbol izquierdo */
+    int verticesEnIzquierdo, verticesEnDerecho;
+    verticesEnDerecho = verticesEnIzquierdo = 0;
+    if(raiz.hayIzquierdo())
+      verticesEnIzquierdo = DibujaElmArbol.cuentaVerticesSubarbol(raiz.izquierdo());
+    /* Calculamos la cantidad de vértices que hay en el subarbol derecho */
+    if(raiz.hayDerecho())
+      verticesEnDerecho = DibujaElmArbol.cuentaVerticesSubarbol(raiz.derecho());
+
+    /* Calculamos la coordenada en x de la raíz */
+    int xNueva = verticesEnIzquierdo*30+30;
+    /* Inicializamos la coordenada en y de la raíz */
+    int yNueva = 30;
+    /* Calculamos el límite inferior del margen del arbol */
+    int limiteInferior = 0;
+    /* Calculamos el límite supperior del margen del arbol */
+    int limiteSuperior = xNueva + (verticesEnDerecho)*30;
+    /* Obtenemos las respectivas etiquetas de cada vértice en caso de ser avl */
+    String etiqueta, balance_altura;
+    etiqueta = balance_altura = "";
+    /* EN caso de ser rojinegro necesitamos el color de la raíz que es negro */
+    Color color = Color.NINGUNO;
+    /* Si es arbol avl creamos la etiqueta del nodo, sino, cambiamos el color del nodo por NEGRO */
+    if(estructura.equals(EstructuraDatos.ARBOLAVL)){
+      balance_altura = raiz.toString().substring(raiz.toString().length()-4, raiz.toString().length());
+      etiqueta = DibujaElmArbol.dibujaEtiqueta(xNueva+3, yNueva-9, balance_altura);
+    }else
+      color = Color.NEGRO;
+    String izq , der;
+    izq = der = "";
+    if(raiz.hayIzquierdo())
+      izq = dibujaArbol(xNueva, yNueva, raiz.izquierdo(), limiteInferior, xNueva);
+    if(raiz.hayDerecho())
+      der = dibujaArbol(xNueva, yNueva, raiz.derecho(), xNueva, limiteSuperior);
+
+    return etiqueta + DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, color)+ der + izq;
   }
   /**
   * Método para dibujar un árbol binario
@@ -138,14 +157,19 @@ public class DibujaArbol<T extends Comparable<T>>{
   * @param int j corresponde al límite superior del arreglo
   * i, j nos ayudarán a poder ir calculando las mitades de cada subarreglo para encontrar la coordenada en x para cada nodo
   */
-  public String dibujaArbol(int[] coordsX, int coordY, int mitad, VerticeArbolBinario v, int i, int j){
-    // Recalculamos la mitad
-    int mit = DibujaElmArbol. calculaMitad(i, j);
-    // Recalculamos la nueva coordenada en Y
-    int coordYNueva = coordY + 30;
-    // Primero dibujamos el arista del vértice pasado al nuemo vértice
-    String arista = DibujaElmArbol.dibujaArista(coordsX[mitad], coordY, coordsX[mit], coordYNueva);
-    // Tenemos que meternos en el lío de los colores
+  public String dibujaArbol(int coorXAnterior, int coordYAnterior, VerticeArbolBinario v, int inferior, int superior){
+    /* Caso en donde el vértice no existe (Caso base 1) */
+    if(v == null)
+      return "";
+    /* Recalculamos la nueva coordenada en X, Y */
+    int xNueva = DibujaElmArbol. calculaMitad(inferior, superior);
+    int coordYNueva = coordYAnterior + 30;
+    /* Primero dibujamos el arista del vértice pasado al nuemo vértice */
+    String arista;
+    int coordXAux = (v.padre().hayIzquierdo() && v.padre().izquierdo() == v) ? coorXAnterior -8  : coorXAnterior + 8;
+    arista = DibujaElmArbol.dibujaArista(coordXAux, coordYAnterior, xNueva, coordYNueva);
+
+    /* Tenemos que meternos en el lío de los colores */
     Color color;
     if(v.toString().substring(0,1).equals("R"))
       color = Color.ROJO;
@@ -153,34 +177,27 @@ public class DibujaArbol<T extends Comparable<T>>{
       color = Color.NEGRO;
     else
       color = Color.NINGUNO;
-    // Caso en donde el vértice no existe (Caso base 1)
-    if(v == null)
-      return "";
-    String etiqueta = "";
-    String balance_altura = "";
+    String etiqueta, balance_altura;
+    etiqueta = balance_altura = "";
     if(esArbolAVL){
-      // Obtenemos la subcadena del nodo que representa su altura/balance
+      /* Obtenemos la subcadena del nodo que representa su altura/balance */
       balance_altura = v.toString().substring(v.toString().length()-4, v.toString().length());
-      // Creamos la etiqueta txt de svg
-      etiqueta = DibujaElmArbol.dibujaEtiqueta(coordsX[mit]+8, coordYNueva-8, balance_altura);
+      /*  Creamos la etiqueta txt de svg */
+      coordXAux = (v.padre().hayIzquierdo() && v.padre().izquierdo() == v) ? xNueva-8 : xNueva+8;
+      etiqueta = DibujaElmArbol.dibujaEtiqueta(coordXAux, coordYNueva-8, balance_altura);
     }
-    // Caso base que es cuando el vértice es hoja (Caso base 2)
+    /* Caso base que es cuando el vértice es hoja (Caso base 2) */
     if(DibujaElmArbol.esHoja(v))
-      return etiqueta + arista + DibujaElmArbol.dibujaNodo(coordsX[mit],coordYNueva,v,color);
-    // Si no es el caso base ya regresamos la representación del nodo etc etc
-    // Vamos a ver si tiene hijo izquierdo
-    if(!v.hayIzquierdo())
-      return  etiqueta + arista + DibujaElmArbol.dibujaNodo(coordsX[mit],coordYNueva,v,color)+
-        dibujaArbol(coordsX, coordYNueva, mit, v.derecho(), mit, j);
-    // Vamos a ver si tiene hijo derecho
-    if(!v.hayDerecho())
-      return  etiqueta + arista + DibujaElmArbol.dibujaNodo(coordsX[mit],coordYNueva,v,color)+
-        dibujaArbol(coordsX, coordYNueva, mit, v.izquierdo(), mit, j);
-    // Tiene ambos hijos
-    else
-      return  etiqueta + arista + DibujaElmArbol.dibujaNodo(coordsX[mit],coordYNueva,v,color)+
-        dibujaArbol(coordsX, coordYNueva, mit, v.izquierdo(), i, mit)+
-        dibujaArbol(coordsX, coordYNueva, mit, v.derecho(), mit, j);
+      return etiqueta + arista + DibujaElmArbol.dibujaNodo(xNueva,coordYNueva,v,color);
+    /* Vamos a ver si tiene hijo izquierdo */
+    String izq, der;
+    izq = der = "";
+    if(v.hayIzquierdo())
+        izq = dibujaArbol(xNueva, coordYNueva, v.izquierdo(), inferior, xNueva);
+    /* Vamos a ver si tiene hijo derecho */
+    if(v.hayDerecho())
+        der = dibujaArbol(xNueva, coordYNueva, v.derecho(), xNueva, superior);
+    return  etiqueta + arista + DibujaElmArbol.dibujaNodo(xNueva,coordYNueva,v,color)+ izq + der;
   }
   /**
   * Vamos a probar que se imprima correctamente el arbol binario
@@ -188,26 +205,12 @@ public class DibujaArbol<T extends Comparable<T>>{
   */
   public static void main(String[] args){
     Lista<Integer> lista = new Lista<>();
-    for(int i = 0; i < 8; i++)
-      lista.agregaFinal(i);
+    for(int i = 0; i < 25; i++)
+      lista.agregaFinal((int)(Math.random()*50+1));
     DibujaArbol d = new DibujaArbol(lista);
-    String arbolR = d.dibujaArbol(EstructuraDatos.ARBOLROJINEGRO);
-    System.out.println("A Continación se imprime el árbol rojinegro");
+    String arbolR = d.dibujaArbol(EstructuraDatos.ARBOLAVL);
+
     System.out.println(arbolR);
   }
-  /**
-  ----------------------PRUEBA PARA IMRPIMIR NODOS EN DFS SVG
-  int alturaX = 0;
-  int xglobal = 0;
-  public void dfsInOrder(Vertice vertice, int altura){
-    if(vertice == null) return;
-    dfsInOrder(vertice.izquierdo, alturaX++);
-    System.out.println(vertice.get()+" ( "+(xglobal+=50) +", "+((alturaX--)*10)+" )");
-    dfsInOrder(vertice.derecho, alturaX++ );
-  }
-  public void dfsI(){
-    dfsInOrder(this.raiz, alturaX);
-  }
-  ----------------------PRUEBA PARA IMRPIMIR NODOS EN DFS SVG
-  **/
+
 }

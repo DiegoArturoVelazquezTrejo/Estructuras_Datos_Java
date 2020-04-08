@@ -35,7 +35,7 @@ public class DibujaElmArbol{
         color = "Black";
         break;
       case NINGUNO:
-        color = "None";
+        color = "White";
         break;
     }
     int y1 = y+2;
@@ -48,18 +48,7 @@ public class DibujaElmArbol{
     " text-anchor='middle' fill="+ colorletra+" font-size='10px' font-family='Arial' dy='.1em'>"+
     vertice.get()+"</text>";
   }
-  /**
-  * Método que genera las coordenadas X de todos los nodos que se graficarán
-  * @param int número de nodos del arbol binario
-  * @return int[] con las coordenadas en X
-  */
-  public static  int[] generaCoordenadasX(int numero){
-    // Genera un arreglo con la coordenada en x para cada elemento del árbol binario
-    int [] coordenadas = new int[numero];
-    for(int i = 0;  i < numero; i++)
-      coordenadas[i] = (i*30)+30;
-    return coordenadas;
-  }
+
   /**
   * Método que calcula la mitad de un número por nosotros
   * @param int numero
@@ -84,5 +73,19 @@ public class DibujaElmArbol{
     int x1 = x-2;
     return "<text x= "+x1+" y= "+y1+" text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+
     etiqueta+"</text>";
+  }
+  /**
+  * Método Auxiliar para calcular la cantidad de nodos en un subarbol Td, Ti
+  * @param VerticeArbolBinario vertice
+  */
+  public static int cuentaVerticesSubarbol(VerticeArbolBinario v){
+    if(!v.hayIzquierdo() && v.hayDerecho())
+      return 1 + cuentaVerticesSubarbol(v.derecho());
+    if(!v.hayDerecho() && v.hayIzquierdo())
+      return 1 + cuentaVerticesSubarbol(v.izquierdo());
+    if(esHoja(v))
+      return 1;
+    else
+      return 1 + cuentaVerticesSubarbol(v.izquierdo()) + cuentaVerticesSubarbol(v.derecho());
   }
 }
