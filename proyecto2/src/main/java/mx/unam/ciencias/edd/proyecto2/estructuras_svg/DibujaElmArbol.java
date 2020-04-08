@@ -14,7 +14,7 @@ public class DibujaElmArbol{
   * @param int coordenada2 en y
   * @return Representación en cadena del arista
   */
-  public  static  String dibujaAristas(int x1, int y1, int x2, int y2){
+  public  static  String dibujaArista(int x1, int y1, int x2, int y2){
     return "<line x1="+x1+" y1="+y1+" x2= "+x2+" y2=" + y2 +" style='stroke:#f00; stroke-width:3'></line>";
   }
   /**
@@ -58,8 +58,8 @@ public class DibujaElmArbol{
   * Método que calcula la mitad de un número por nosotros
   * @param int numero
   */
-  public static int calculaMitad(int numero){
-    return numero/2;
+  public static int calculaMitad(int x1, int x2){
+    return (int)Math.floor((x1 + x2)/2);
   }
   /**
   * Método que nos dice si el vértice es una hoja o no
@@ -67,14 +67,14 @@ public class DibujaElmArbol{
   * @return true si es hoja, false de lo contrario
   */
   public static  boolean esHoja(VerticeArbolBinario vertice){
-    return vertice.hayIzquierdo() && vertice.hayDerecho();
+    return !vertice.hayIzquierdo() && !vertice.hayDerecho();
   }
   /**
   * Método exclusivo para árboles binarios AVL
   * @param
   */
-  public static String dibujaEtiqueta(int x, int y, int altura, int balance){
+  public static String dibujaEtiqueta(int x, int y, String etiqueta){
     return "<text x= "+x+" y= "+y+" text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.3em'>"+
-    altura+"/"+balance+"</text>";
+    etiqueta+"</text>";
   }
 }

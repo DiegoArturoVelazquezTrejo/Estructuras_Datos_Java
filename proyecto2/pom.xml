@@ -5,13 +5,13 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.unam.ciencias.edd</groupId>
-  <artifactId>practica</artifactId>
+  <artifactId>proyecto2</artifactId>
   <version>EDD</version>
   <packaging>jar</packaging>
 
-  <name>Práctica 5</name>
+  <name>Proyecto 2</name>
   <description>
-    Práctica 5 de Estructuras de Datos: Árboles AVL.
+    Proyecto 2: Graficador en SVG de estructuras de datos
   </description>
   <url>https://aztlan.fciencias.unam.mx/gitlab/2019-2-edd/practica5</url>
   <organization>
@@ -45,7 +45,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.edd.Practica5</mainClass>
+	      <mainClass>mx.unam.ciencias.edd.proyecto2.estructuras_svg.DibujaArbol</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>
@@ -65,7 +65,7 @@
 
     </plugins>
 
-    <finalName>practica5</finalName>
+    <finalName>proyecto2</finalName>
   </build>
 
   <reporting>
