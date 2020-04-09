@@ -13,7 +13,6 @@
   <description>
     Proyecto 2: Graficador en SVG de estructuras de datos
   </description>
-  <url>https://aztlan.fciencias.unam.mx/gitlab/2019-2-edd/practica5</url>
   <organization>
     <name>Canek Peláez Valdés</name>
     <url>https://aztlan.fciencias.unam.mx/~canek/</url>
@@ -45,7 +44,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.edd.proyecto2.estructuras_svg.ListaColaPilaDibujable</mainClass>
+	      <mainClass>mx.unam.ciencias.edd.proyecto2.Proyecto2</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>

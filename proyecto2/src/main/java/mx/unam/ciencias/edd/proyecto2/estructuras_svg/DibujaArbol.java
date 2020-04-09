@@ -7,11 +7,11 @@ import mx.unam.ciencias.edd.*;
 */
 public class DibujaArbol<T extends Comparable<T>>{
   /*Cadena que contendrá la representación en SVG del árbol */
-  String arbolSVG = "<?xml    version = \'1.0\' encoding = \'utf-8\' ?>\n";
+  private String arbolSVG = "<?xml    version = \'1.0\' encoding = \'utf-8\' ?>\n";
   /*Lista que contendrá los elementos del árbol binario */
-  Lista<T> elementos;
+  private Lista<T> elementos;
   /* Variable que indica si el arbol que se quiere imprimir es AVL */
-  boolean esArbolAVL = false;
+  private boolean esArbolAVL = false;
 
   /**
   * Método que establece las dimensiones del svg en donde se presentará el árbol
@@ -52,9 +52,11 @@ public class DibujaArbol<T extends Comparable<T>>{
         esArbolAVL = true;
         arbolSVG+=dibujaARbolAVLRojinegro(estructura);
         break;
+      case NINGUNO:
+        arbolSVG="";
+        break;
     }
     /* Concatenamos la etiqueta de cierre */
-    arbolSVG+="</svg>";
     return arbolSVG;
   }
 
@@ -95,7 +97,7 @@ public class DibujaArbol<T extends Comparable<T>>{
       if(raiz.hayDerecho())
         der = dibujaArbol(xNueva, yNueva, raiz.derecho(), xNueva, limiteSuperior);
 
-      return DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, Color.NINGUNO)+ der + izq;
+      return DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, Color.NINGUNO)+ der + izq+"</svg>";
   }
 
   /**
@@ -145,7 +147,7 @@ public class DibujaArbol<T extends Comparable<T>>{
     if(raiz.hayDerecho())
       der = dibujaArbol(xNueva, yNueva, raiz.derecho(), xNueva, limiteSuperior);
 
-    return etiqueta + DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, color)+ der + izq;
+    return etiqueta + DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, color)+ der + izq+"</svg>";
   }
   /**
   * Método para dibujar un árbol binario

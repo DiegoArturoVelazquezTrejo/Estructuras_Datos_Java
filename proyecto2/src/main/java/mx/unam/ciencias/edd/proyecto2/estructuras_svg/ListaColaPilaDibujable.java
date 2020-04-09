@@ -5,9 +5,9 @@ import mx.unam.ciencias.edd.*;
 */
 public class ListaColaPilaDibujable<T extends Comparable<T>>{
   /* Lista con los elementos que se agregarán a la estructura de datos*/
-  Lista<T> elementos;
+  private Lista<T> elementos;
   /*Cadena que contendrá la representación en SVG del árbol */
-  String estructuraSVG = "<?xml   version = \'1.0\' encoding = \'utf-8\' ?>\n";
+  private String estructuraSVG = "<?xml   version = \'1.0\' encoding = \'utf-8\' ?>\n";
   /**
   * Método que establece las dimensiones del svg en donde se presentará la estructura
   */
@@ -44,6 +44,9 @@ public class ListaColaPilaDibujable<T extends Comparable<T>>{
       case COLA:
         estructuraSVG+=dibujaListaCola(false);
         break;
+      case NINGUNO:
+        estructuraSVG+="";
+        break; 
     }
     /* Concatenamos la etiqueta de cierre */
     estructuraSVG+="</svg>";
