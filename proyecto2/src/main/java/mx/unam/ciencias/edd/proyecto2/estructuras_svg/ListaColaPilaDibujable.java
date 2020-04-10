@@ -10,6 +10,8 @@ public class ListaColaPilaDibujable<T extends Comparable<T>>{
   private String estructuraSVG = "<?xml   version = \'1.0\' encoding = \'utf-8\' ?>\n";
   /**
   * Método que establece las dimensiones del svg en donde se presentará la estructura
+  * @param int ancho
+  * @param int alto
   */
   public void estableceDimensiones(int ancho,int alto){
       this.estructuraSVG+= "<svg width="+ancho+"  height= " + alto+ ">";
@@ -30,59 +32,61 @@ public class ListaColaPilaDibujable<T extends Comparable<T>>{
     /* En caso de no tener elementos, no se dibuja nada */
     if(elementos.getLongitud() == 0)
       return "";
+    String res = "";
     /* Checaremos de qué tipo de estructura se trata */
     switch(estructura){
       /* En caso de ser una lista, se concatena su representación en svg */
       case LISTA:
-        estructuraSVG+=dibujaListaCola(true);
+        res+=dibujaListaCola(true);
         break;
       /* En caso de ser una pila , se concatena su representación en svg */
       case PILA:
-        estructuraSVG+=dibujaPila();
+        res+=dibujaPila();
         break;
       /* En caso de ser una cola, se concatena su representación en svg */
       case COLA:
-        estructuraSVG+=dibujaListaCola(false);
+        res+=dibujaListaCola(false);
         break;
       case NINGUNO:
-        estructuraSVG+="";
-        break; 
+        res+="";
+        break;
     }
     /* Concatenamos la etiqueta de cierre */
-    estructuraSVG+="</svg>";
-    return estructuraSVG;
+    return estructuraSVG+res;
   }
   /**
   * Método que representa en SVG a una lista o a una cola
   * @param boolean lista true si es una lista, false si es una cola
   */
   public String dibujaListaCola(boolean lista){
+    String res = "";
     estableceDimensiones(elementos.getLongitud()*115, 300);
     int coordx = 10;
     int coordY = 50;
     while(elementos.getLongitud() > 1){
       /* Eliminamos el primer elemento, lo guardamos y lo representamos en svg*/
       T elemento = elementos.eliminaPrimero();
-      estructuraSVG+= DibujaElementosNodos.dibujaNodo(coordx, coordY, elemento.toString(), lista);
+      res+= DibujaElementosNodos.dibujaNodo(coordx, coordY, elemento.toString(), lista);
       coordx+=85;
     }
     /* Agregamos el último elemento de la lista*/
-    estructuraSVG+=DibujaElementosNodos.dibujaCuadrado(coordx, coordY, elementos.eliminaPrimero().toString());
-    return estructuraSVG;
+    res+=DibujaElementosNodos.dibujaCuadrado(coordx, coordY, elementos.eliminaPrimero().toString());
+    return res+"</svg>";
   }
   /**
   * Método que representa a una pila en SVG
   */
   public String dibujaPila(){
+    String res = "";
     estableceDimensiones(80,elementos.getLongitud()*40);
     Lista<T> reversa = elementos.reversa();
     int coordY = 40;
     while(reversa.getLongitud() > 0){
       T elemento = reversa.eliminaPrimero();
-      estructuraSVG+=DibujaElementosNodos.dibujaCuadrado(10, coordY, elemento.toString());
+      res+=DibujaElementosNodos.dibujaCuadrado(10, coordY, elemento.toString());
       coordY+=30;
     }
-    return estructuraSVG;
+    return res+"</svg>";
   }
 
 }

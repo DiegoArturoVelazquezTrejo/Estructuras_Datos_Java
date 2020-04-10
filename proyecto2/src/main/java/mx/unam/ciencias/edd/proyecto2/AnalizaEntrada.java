@@ -98,8 +98,10 @@ public class AnalizaEntrada{
       DibujaArbol<Integer> dibAr = new DibujaArbol<>(datos);
       resultado = dibAr.dibujaArbol(estructura);
     }
+    /* En este caso no se identificó la estructura que se ingresaba y no se pudo asignar correctamente
+    o también se ingresaron caracteres adicionales por lo que se produjo un error. */
     if(estructura == EstructuraDatos.NINGUNO)
-      return "Se ha producido un error en tu entrada"; 
+      return "Se ha producido un error en tu entrada";
     return resultado;
   }
 }
