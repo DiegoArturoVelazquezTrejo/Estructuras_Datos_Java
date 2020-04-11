@@ -44,7 +44,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.edd.proyecto2.Proyecto2</mainClass>
+	      <mainClass>mx.unam.ciencias.edd.proyecto2.estructuras_svg.DibujaGrafica</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>

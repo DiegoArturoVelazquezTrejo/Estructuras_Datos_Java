@@ -24,5 +24,6 @@ public class Proyecto2{
     AnalizaEntrada a = new AnalizaEntrada(contenido);
     /* Mandamos a imprimir la estructura que el usuario haya escogido */
     System.out.println(a.imprimeEstructura());
+
   }
 }
