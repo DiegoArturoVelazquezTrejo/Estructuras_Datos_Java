@@ -9,14 +9,12 @@ import mx.unam.ciencias.edd.*;
 public class DibujaGrafica<T extends Comparable<T>>{
   /* Clase interna que nos permitirá representar cada vértice con una coordenada x, y y su respectivo elemento */
   private class Punto{
+    /* Elemento del punto */
+    public T elemento;
     /* Coordenada en x*/
     public double x;
     /* Coordenada en y*/
     public double y;
-    /* Elemento del punto */
-    public T elemento;
-    /* Color del punto */
-    public Color color;
     /**
     * Constructor de la clase Punto
     * @param int coordenada en x
@@ -24,21 +22,16 @@ public class DibujaGrafica<T extends Comparable<T>>{
     * @param T elemento
     * @param Color color
     */
-    public Punto(double x,double y, T elemento, Color color){
+    public Punto(double x,double y, T elemento ){
       this.x = x;
       this.y = y;
       this.elemento = elemento;
-      this.color = color;
-    }
-    @Override
-    public String toString(){
-      return "x: "+x+" , y: "+y+elemento.toString();
     }
   }
   /* Lista con los elementos que se agregarán a la estructura de datos*/
   private Lista<T> elementos;
   /* Gráfica que almacenará los elementos */
-  Grafica<T> graf = new Grafica<>();
+  public Grafica<T> graf = new Grafica<>();
   /*Cadena que contendrá la representación en SVG del árbol */
   private String estructuraSVG = "<?xml   version = \'1.0\' encoding = \'utf-8\' ?>\n";
   /**
@@ -64,7 +57,7 @@ public class DibujaGrafica<T extends Comparable<T>>{
   public Lista<Punto> generaPuntos(){
     Lista<Punto> listaPuntos = new Lista<>();
     for(T elemento : graf){
-      listaPuntos.agregaFinal(new Punto(0, 0, elemento, Color.NINGUNO)); // X va a tener un incremento, Y va a ser producto de una función circular
+      listaPuntos.agregaFinal(new Punto(0, 0, elemento)); // X va a tener un incremento, Y va a ser producto de una función circular
     }
     return listaPuntos;
   }
@@ -85,35 +78,19 @@ public class DibujaGrafica<T extends Comparable<T>>{
   * @return String representación en svg del putno
   */
   public String dibujaVertice(Punto p){
-      return dibujaNodo(p.x, p.y, p.elemento, p.color);
+      return dibujaNodo(p.x, p.y, p.elemento);
   }
   /**
   * Método que dibuja cada nodo de la gráfica
   * @param int coordenada en x
   * @param int coordenada en y
   * @param T elemento
-  * @param Color color del vértice
+  * @return Representación en svg del nodo
   */
-  public String dibujaNodo(double x, double y, T elemento, Color c){
-    String color = "";
-    switch(c){
-      case ROJO:
-        color = "Red";
-        break;
-      case NEGRO:
-        color = "Black";
-        break;
-      case NINGUNO:
-        color = "White";
-        break;
-    }
+  public String dibujaNodo(double x, double y, T elemento){
     double y1 = y+2;
-    String colorletra ="";
-    if(c.equals(Color.NEGRO) || c.equals(Color.ROJO))
-      colorletra = "white";
-    else
-      colorletra = "Black";
-    return "<circle cx= "+x+" cy= "+y+" r='8' stroke='black' fill="+color+"  /> <text x= "+x+" y= "+y1+
+    String colorletra = "Black";
+    return "<circle cx= "+x+" cy= "+y+" r='8' stroke='black' fill='white'  /> <text x= "+x+" y= "+y1+
     " text-anchor='middle' fill="+ colorletra+" font-size='10px' font-family='Arial' dy='.1em'>"+
     elemento.toString()+"</text>";
   }
@@ -160,6 +137,11 @@ public class DibujaGrafica<T extends Comparable<T>>{
   * @param Lista<Punto> listaPuntos
   */
   public void asignaCoordenadas(Lista<Punto> listaPuntos){
+    if(listaPuntos.getLongitud() == 1){
+      listaPuntos.get(0).x = 250;
+      listaPuntos.get(0).y = 200;
+      return;
+    }
     int mitad = listaPuntos.getLongitud()/2;
     Lista<Punto> lista2 = new Lista<>();
     for(int i = 0; i < mitad; i++)
@@ -203,6 +185,7 @@ public class DibujaGrafica<T extends Comparable<T>>{
   public String dibujaGrafica(){
     estableceDimensiones(700, 420);
     Lista<Punto> listaPuntos = generaPuntos();
+    if(listaPuntos.getLongitud() == 0) return "Gráfica Vacía";
     asignaCoordenadas(listaPuntos);
     String svgPuntos = dibujaPuntos(listaPuntos);
     String svgAristas = dibujaAristas(listaPuntos);
