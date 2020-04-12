@@ -15,8 +15,8 @@ public class DibujaElementosNodos{
   public static <T> String dibujaCuadrado(int x1, int y1, String elemento){
     int x = x1 + 30;
     int y = y1 + 15;
-    return "<rect x="+ x1 +" y="+ y1 +" width='60' height='30' style='fill:white;stroke:black;' />"+
-           "<text x= "+x+" y= "+y+" text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+elemento+"</text>";
+    return "<rect x="+ x1 +" y="+ y1 +" width='60' height='30' style='fill:white;stroke:black;' />\n"+
+           "<text x= "+x+" y= "+y+" text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+elemento+"</text>\n";
   }
   /**
   * Método que dibuja la flecha correspondiente hacia la derecha (para colas)
@@ -25,7 +25,7 @@ public class DibujaElementosNodos{
   * @return Representación en cadena de la flecha
   */
   public static String dibujaFlechaDerecha(int x1, int y1){
-    return "<svg x = "+x1+" y ="+y1+" width='25' height='20' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'><path d='M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z'/></svg>";
+    return "<svg x = "+x1+" y ="+y1+" width='25' height='20' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'>\n<path d='M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z'/></svg>\n";
   }
   /**
   * Método que dibuja la flecha correspondiente hacia ambas direcciones (para listas)
@@ -34,8 +34,8 @@ public class DibujaElementosNodos{
   * @return Representación en cadena de la doble flecha
   */
   public static String dibujaDobleFlecha  (int x1, int y1){
-    return "<svg x = "+x1+" y ="+y1+" width='25' height='20' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'><path d='M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z'/></svg>"+
-           "<svg x = "+x1+" y ="+y1+" width='25' height='20' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'><path d='M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z'/></svg>";
+    return "<svg x = "+x1+" y ="+y1+" width='25' height='20' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'>\n<path d='M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z'/></svg>\n"+
+           "<svg x = "+x1+" y ="+y1+" width='25' height='20' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'>\n<path d='M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z'/></svg>\n";
   }
   /**
   * Método que dibuja el cuadrado del nodo junto con flechas

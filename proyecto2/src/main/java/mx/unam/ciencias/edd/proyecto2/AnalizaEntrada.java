@@ -124,6 +124,7 @@ public class AnalizaEntrada{
       return "No se ha ingresado el separador para gráficas";
     }
     for(int i = 0; i < conexiones.length(); i++){
+      if(Character.isLetter(conexiones.charAt(i))) return "Revisa tu entrada";
       if(conexiones.charAt(i) != '-' && conexiones.charAt(i) != ','){
         if(esNumero(Character.toString(conexiones.charAt(i)))) numero+=conexiones.charAt(i);
       }else if(conexiones.charAt(i) == '-'){
@@ -136,12 +137,11 @@ public class AnalizaEntrada{
           conexion2 = Integer.parseInt(numero);
           dg.graf.conecta(conexion1, conexion2);
         }catch(Exception e){
-          System.out.println("Se ha producido un error para conectar"); 
+          System.out.println("Se ha producido un error para conectar");
         }
         numero = "";
       }
     }
-    System.out.println(dg.graf.toString());
     return dg.dibujaGrafica();
   }
 }

@@ -18,7 +18,7 @@ public class DibujaArbol<T extends Comparable<T>>{
   */
   public void estableceDimensiones(){
     if(this.elementos.getLongitud() > 0)
-      this.arbolSVG+= "<svg width="+(elementos.getLongitud()*60)+"  height= " + elementos.getLongitud()*40+ ">";
+      this.arbolSVG+= "<svg width="+(elementos.getLongitud()*60)+"  height= " + elementos.getLongitud()*40+ ">\n";
   }
   /**
   * Constructor de la clase DibujaArbol

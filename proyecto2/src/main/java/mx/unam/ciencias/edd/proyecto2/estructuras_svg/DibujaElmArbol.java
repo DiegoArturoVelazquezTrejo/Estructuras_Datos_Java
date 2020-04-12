@@ -15,7 +15,7 @@ public class DibujaElmArbol{
   * @return Representación en cadena del arista
   */
   public  static  String dibujaArista(int x1, int y1, int x2, int y2){
-    return "<line x1="+x1+" y1="+y1+" x2= "+x2+" y2=" + y2 +" style='stroke:black; stroke-width:1'></line>";
+    return "<line x1="+x1+" y1="+y1+" x2= "+x2+" y2=" + y2 +" style='stroke:black; stroke-width:1'></line>\n";
   }
   /**
   * Método para dibujar en vértice del árbol binario
@@ -46,9 +46,9 @@ public class DibujaElmArbol{
       colorletra = "Black";
     return "<circle cx= "+x+" cy= "+y+" r='8' stroke='black' fill="+color+"  /> <text x= "+x+" y= "+y1+
     " text-anchor='middle' fill="+ colorletra+" font-size='10px' font-family='Arial' dy='.1em'>"+
-    vertice.get()+"</text>";
+    vertice.get()+"</text>\n";
   }
- 
+
   /**
   * Método que calcula la mitad de un número por nosotros
   * @param int numero
@@ -72,7 +72,7 @@ public class DibujaElmArbol{
     int y1 = y-3;
     int x1 = x-2;
     return "<text x= "+x1+" y= "+y1+" text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+
-    etiqueta+"</text>";
+    etiqueta+"</text>\n";
   }
   /**
   * Método Auxiliar para calcular la cantidad de nodos en un subarbol Td, Ti

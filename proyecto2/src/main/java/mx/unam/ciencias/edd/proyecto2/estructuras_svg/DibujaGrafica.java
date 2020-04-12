@@ -48,7 +48,7 @@ public class DibujaGrafica<T extends Comparable<T>>{
   * @param int alto
   */
   public void estableceDimensiones(int ancho,int alto){
-      this.estructuraSVG+= "<svg width="+ancho+"  height= " + alto+ ">";
+      this.estructuraSVG+= "<svg width="+ancho+"  height= " + alto+ ">\n";
   }
   /**
   * Método que genera Puntos de acuerdo a los elementos de la gráfica (vértices)
@@ -90,9 +90,9 @@ public class DibujaGrafica<T extends Comparable<T>>{
   public String dibujaNodo(double x, double y, T elemento){
     double y1 = y+2;
     String colorletra = "Black";
-    return "<circle cx= "+x+" cy= "+y+" r='8' stroke='black' fill='white'  /> <text x= "+x+" y= "+y1+
+    return "<circle cx= "+x+" cy= "+y+" r='8' stroke='black' fill='white'  />\n <text x= "+x+" y= "+y1+
     " text-anchor='middle' fill="+ colorletra+" font-size='10px' font-family='Arial' dy='.1em'>"+
-    elemento.toString()+"</text>";
+    elemento.toString()+"</text>\n";
   }
   /**
   * Método para agregar la representación en svg de los aristas
@@ -130,7 +130,7 @@ public class DibujaGrafica<T extends Comparable<T>>{
     double y1N, y2N;
     y1N = (y1 < 200) ? y1+8 : y1 -8;
     y2N = (y2 < 200) ? y2+8 : y2 -8;
-    return "<line x1="+x1+" y1="+y1N+" x2= "+x2+" y2=" + y2N+" style='stroke:black; stroke-width:1'></line>";
+    return "<line x1="+x1+" y1="+y1N+" x2= "+x2+" y2=" + y2N+" style='stroke:black; stroke-width:1'></line>\n";
   }
   /**
   * Método que asigna las coordenadas en x, y a cada punto
