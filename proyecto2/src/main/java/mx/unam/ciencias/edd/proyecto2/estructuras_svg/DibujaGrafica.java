@@ -40,7 +40,11 @@ public class DibujaGrafica<T extends Comparable<T>>{
   */
   public DibujaGrafica(Lista<T> lista){
     for(T elemento : lista)
-      graf.agrega(elemento);
+      try{
+        graf.agrega(elemento);
+      }catch(Exception e){
+        System.out.println("No se pueden ingresar elementos repetidos"); 
+      }
   }
   /**
   * Método que establece las dimensiones del svg en donde se presentará la estructura
@@ -151,19 +155,20 @@ public class DibujaGrafica<T extends Comparable<T>>{
     xSuperior = 250;
     xInferior = 650;
     ySuperior = yInferior = 200;
-    double deltaX = 400/mitad;
+    double deltaX1 = 400/listaPuntos.getLongitud();
+    double deltaX2 = 400/lista2.getLongitud();
     /* Asignamos coordenadas a la mitad de los vértices en la media circunferencia superior */
     for(Punto p : listaPuntos){
       p.x = xSuperior;
       p.y = ySuperior;
-      xSuperior = xSuperior+deltaX;
+      xSuperior = xSuperior+deltaX1;
       ySuperior = funcionCircular(xSuperior, 1);
     }
     /* Asignamos coordenadas a la mitad de los vértices en la media circunferencia inferior */
     for(Punto p : lista2){
       p.x = xInferior;
       p.y = yInferior;
-      xInferior = xInferior-deltaX;
+      xInferior = xInferior-deltaX2;
       yInferior = funcionCircular(xInferior, -1);
     }
     for(Punto p : lista2)

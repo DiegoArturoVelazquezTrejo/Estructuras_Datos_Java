@@ -22,8 +22,11 @@ public class Proyecto2{
       contenido = LectorEntrada.leerConsola();
     /* Creamos el objeto con el que analizaremos la entrada */
     AnalizaEntrada a = new AnalizaEntrada(contenido);
+    String estructura = a.imprimeEstructura();
     /* Mandamos a imprimir la estructura que el usuario haya escogido */
-    System.out.println(a.imprimeEstructura());
-
+    System.out.println(estructura);
+    try{
+      LectorEntrada.escribirArchivo("prueba.html", estructura);
+    }catch(IOException e){}
   }
 }

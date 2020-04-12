@@ -1,11 +1,15 @@
 package mx.unam.ciencias.edd.proyecto2;
 import mx.unam.ciencias.edd.Lista;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 /**
 * Clase para leer la entrada del programa ya sea por consola o por archivo de texto
 */
@@ -57,6 +61,17 @@ public class LectorEntrada{
     }
     System.out.print("\n");
     return contenido;
+  }
+  /** Método para escribir sobre un archivo de texto
+  * @param Nombre del archivo donde se guardará el resultado del programa
+  * @param String resultado del programa 
+  */
+  public static void escribirArchivo(String documento, String oracion) throws IOException{
+    FileOutputStream fileOut = new FileOutputStream(documento);
+    OutputStreamWriter osOut = new OutputStreamWriter(fileOut);
+    BufferedWriter out = new BufferedWriter(osOut);
+    out.write(oracion + "\n");
+    out.close();
   }
 
 }
