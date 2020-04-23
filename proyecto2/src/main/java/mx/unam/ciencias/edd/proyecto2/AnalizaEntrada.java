@@ -75,7 +75,7 @@ public class AnalizaEntrada{
       case "grafica":
         this.estructura = EstructuraDatos.GRAFICA;
         break;
-      case "moniticulominimo":
+      case "monticulominimo":
         this.estructura = EstructuraDatos.MONTICULOMINIMO;
         break;
       case "monticulo":
@@ -106,6 +106,9 @@ public class AnalizaEntrada{
       resultado = l.dibujaEstructuraDatos(estructura);
     }else if(estructura.equals(EstructuraDatos.GRAFICA)){
       resultado = obtieneGrafica();
+    }else if(estructura.equals(EstructuraDatos.MONTICULOMINIMO)){
+      DibujaMonticulo dibMonticulo = new DibujaMonticulo(datos);
+      resultado = dibMonticulo.dibujaMonticulo();
     }else{
       DibujaArbol<Integer> dibAr = new DibujaArbol<>(datos);
       resultado = dibAr.dibujaArbol(estructura);

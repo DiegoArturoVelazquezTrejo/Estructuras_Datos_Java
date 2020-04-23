@@ -4,7 +4,7 @@ Estructuras de Datos
 Proyecto 2
 -----------------------
 
-### Fecha de entrega: martes 14 de abril, 2020
+### Fecha de entrega:1 mayo, 2020
 
 
 $ mvn compile
@@ -23,10 +23,10 @@ al ejecutar:
 ```
 $ mvn install
 ...
-$ java -jar target/practica5.jar 1000
+$ java -jar target/proyecto2.jar nombreArchivo.txt
 ```
 
-Los únicos archivos que deben modificar son:
+Clases que contiene el proyecto :
 
 * `ArbolAVL.java`,
 * `ArbolBinario.java`,
@@ -36,19 +36,13 @@ Los únicos archivos que deben modificar son:
 * `Arreglos.java`,
 * `Cola.java`,
 * `Lista.java`,
-* `MeteSaca.java`, y
+* `MeteSaca.java`, 
 * `Pila.java`.
+* `MonticuloMinimo.java`.
 
 *No deben modificar de ninguna manera ninguno de los otros archivos de la
 práctica*.
 
-### Repositorio
-
-Pueden clonar la práctica con el siguiente comando:
-
-```
-$ git clone https://aztlan.fciencias.unam.mx/gitlab/2020-2-edd/practica5.git
-```
 
 ### Documentación
 
@@ -57,10 +51,4 @@ La documentación generada por JavaDoc la pueden consultar aquí:
 [Documentación generada por JavaDoc para la práctica
 5](https://aztlan.fciencias.unam.mx/~canek/2020-2-edd/practica5/apidocs/index.html)
 
-### Capítulos del libro
 
-Los capítulos [del
-libro](https://tienda.fciencias.unam.mx/es/home/437-estructuras-de-datos-con-java-moderno-9786073009157.html)
-relacionados a esta práctica son:
-
-16. Árboles AVL

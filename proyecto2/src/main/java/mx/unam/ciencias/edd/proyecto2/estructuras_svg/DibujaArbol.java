@@ -52,11 +52,6 @@ public class DibujaArbol<T extends Comparable<T>>{
         esArbolAVL = true;
         arbolSVG+=dibujaARbolAVLRojinegro(estructura);
         break;
-        /* En caso de ser un min heap, se concatena su representación en svg */
-        case MONTICULOMINIMO:
-          esArbolAVL = true;
-          arbolSVG+=dibujaMonticulo();
-          break;
       case NINGUNO:
         arbolSVG="";
         break;
@@ -206,12 +201,4 @@ public class DibujaArbol<T extends Comparable<T>>{
         der = dibujaArbol(xNueva, coordYNueva, v.derecho(), xNueva, superior);
     return  etiqueta + arista + DibujaElmArbol.dibujaNodo(xNueva,coordYNueva,v,color)+ izq + der;
   }
-  /**
-  * Método que dibuja un montículo
-  * @return String representación en svg del montículo 
-  */
-  public String dibujaMonticulo(){
-    return "";
-  }
-
 }
