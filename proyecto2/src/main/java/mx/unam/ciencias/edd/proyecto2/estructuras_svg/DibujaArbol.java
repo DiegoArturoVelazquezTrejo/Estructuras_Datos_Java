@@ -7,7 +7,7 @@ import mx.unam.ciencias.edd.*;
 */
 public class DibujaArbol<T extends Comparable<T>>{
   /*Cadena que contendrá la representación en SVG del árbol */
-  private String arbolSVG = "<?xml    version = \'1.0\' encoding = \'utf-8\' ?>\n";
+  private String arbolSVG = "";
   /*Lista que contendrá los elementos del árbol binario */
   private Lista<T> elementos;
   /* Variable que indica si el arbol que se quiere imprimir es AVL */
@@ -18,7 +18,7 @@ public class DibujaArbol<T extends Comparable<T>>{
   */
   public void estableceDimensiones(){
     if(this.elementos.getLongitud() > 0)
-      this.arbolSVG+= "<svg width="+(elementos.getLongitud()*60)+"  height= " + elementos.getLongitud()*40+ ">\n";
+      this.arbolSVG+= "<svg width='"+(elementos.getLongitud()*30)+"'  height= '" + elementos.getLongitud()*15+ "' >\n";
   }
   /**
   * Constructor de la clase DibujaArbol
@@ -52,6 +52,11 @@ public class DibujaArbol<T extends Comparable<T>>{
         esArbolAVL = true;
         arbolSVG+=dibujaARbolAVLRojinegro(estructura);
         break;
+        /* En caso de ser un min heap, se concatena su representación en svg */
+        case MONTICULOMINIMO:
+          esArbolAVL = true;
+          arbolSVG+=dibujaMonticulo();
+          break;
       case NINGUNO:
         arbolSVG="";
         break;
@@ -201,6 +206,12 @@ public class DibujaArbol<T extends Comparable<T>>{
         der = dibujaArbol(xNueva, coordYNueva, v.derecho(), xNueva, superior);
     return  etiqueta + arista + DibujaElmArbol.dibujaNodo(xNueva,coordYNueva,v,color)+ izq + der;
   }
-
+  /**
+  * Método que dibuja un montículo
+  * @return String representación en svg del montículo 
+  */
+  public String dibujaMonticulo(){
+    return "";
+  }
 
 }

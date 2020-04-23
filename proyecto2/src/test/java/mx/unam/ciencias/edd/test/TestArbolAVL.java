@@ -242,7 +242,7 @@ public class TestArbolAVL {
             "   └─»7 0/0\n";
         arbol = new ArbolAVL<Integer>();
         for (int i = 1; i <= 7; i++)
-            arbol.agrega(i); 
+            arbol.agrega(i);
         Assert.assertTrue(arbol.toString().equals(cadena));
     }
 }

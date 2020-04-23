@@ -16,22 +16,13 @@ public class GeneraArchivo{
 
   public static void main(String args[]){
     String res = "";
-    if(args.length != 0 && !args[0].toLowerCase().equals("grafica")){
+    if(args.length != 0 && !args[0].equals("grafica")){
       res+=args[0]+" ";
       res+=GeneraArchivo.generaNumerosAleatorios();
-    }else if(args.length != 0 && args[0].toLowerCase().equals("grafica")){
-      ArrayList<Integer> lista = new ArrayList<>();
-      int limite = (int)(Math.random()*100+1);
+    }
+    else{
       res+=args[0]+" ";
-      for(int i = 0; i < limite; i++){
-        lista.add(i);
-        res+=Integer.toString(i)+" ";
-      }
-      res+="  :";
-      for(int i = 0; i < lista.size(); i++){
-        int aleatorio = (int)(Math.random()*limite);
-        res+=lista.get(i).toString()+"-"+lista.get(aleatorio).toString()+",";
-      }
+      res+=GeneraArchivo.generaGrafica();
     }
     try{
       GeneraArchivo.escribirArchivo("resultado.txt", res);
@@ -40,12 +31,33 @@ public class GeneraArchivo{
 
   public static String generaNumerosAleatorios(){
     String s = "";
-    int limite = (int)(Math.random()*100+1);
+    int limite = (int)(Math.random()*40+1);
     for(int i = 0; i < limite; i++){
-      int a = (int)(Math.random()*10+1);
+      int a = (int)(Math.random()*999+1);
       s+=Integer.toString(a)+" ";
     }
     return s;
+  }
+
+  public static String generaGrafica(){
+    String string = "";
+    int limite = 40; //(int)(Math.random()*40+1);
+    int[] numeros = new int[limite];
+    for(int i = 0; i < limite; i++){
+      for(int j = 0; j < limite; j++){
+        string+=Integer.toString(i) + " "+ Integer.toString(j);
+      }
+    }
+    /*
+    for(int i = 0; i < limite; i++)
+      numeros[i] = (int)(Math.random()*40+1);
+    for(int i = 0; i < limite/2; i++){
+      int numero1 = (int)(Math.random()*limite);
+      int numero2 = (int)(Math.random()*limite);
+      string+=Integer.toString(numeros[numero1]) + " "+ Integer.toString(numeros[numero2]);
+    }
+    */
+    return string;
   }
   /** Método para escribir sobre un archivo de texto
   * @param Nombre del archivo donde se guardará el resultado del programa

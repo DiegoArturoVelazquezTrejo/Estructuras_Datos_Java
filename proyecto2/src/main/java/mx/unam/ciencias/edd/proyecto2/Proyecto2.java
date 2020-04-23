@@ -26,7 +26,7 @@ public class Proyecto2{
     /* Mandamos a imprimir la estructura que el usuario haya escogido */
     System.out.println(estructura);
     try{
-      LectorEntrada.escribirArchivo("prueba.html", estructura);
+      LectorEntrada.escribirArchivo("prueba.svg", estructura);
     }catch(IOException e){}
   }
 }

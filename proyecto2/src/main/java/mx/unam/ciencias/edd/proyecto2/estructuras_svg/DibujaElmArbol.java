@@ -15,7 +15,7 @@ public class DibujaElmArbol{
   * @return Representación en cadena del arista
   */
   public  static  String dibujaArista(int x1, int y1, int x2, int y2){
-    return "<line x1="+x1+" y1="+y1+" x2= "+x2+" y2=" + y2 +" style='stroke:black; stroke-width:1'></line>\n";
+    return "<line x1='"+x1+"' y1='"+y1+"' x2= '"+x2+"' y2='" + y2 +"' style='stroke:black; stroke-width:1'></line>\n";
   }
   /**
   * Método para dibujar en vértice del árbol binario
@@ -44,8 +44,8 @@ public class DibujaElmArbol{
       colorletra = "white";
     else
       colorletra = "Black";
-    return "<circle cx= "+x+" cy= "+y+" r='8' stroke='black' fill="+color+"  /> <text x= "+x+" y= "+y1+
-    " text-anchor='middle' fill="+ colorletra+" font-size='10px' font-family='Arial' dy='.1em'>"+
+    return "<circle cx= '"+x+"' cy= '"+y+"' r='8' stroke='black' fill='"+color+"'  /> \n<text x= '"+x+"' y= '"+y1+
+    "' text-anchor='middle' fill='"+ colorletra+"' font-size='8px' font-family='Arial' dy='.1em'>"+
     vertice.get()+"</text>\n";
   }
 
@@ -71,7 +71,7 @@ public class DibujaElmArbol{
   public static String dibujaEtiqueta(int x, int y, String etiqueta){
     int y1 = y-3;
     int x1 = x-2;
-    return "<text x= "+x1+" y= "+y1+" text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+
+    return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+
     etiqueta+"</text>\n";
   }
   /**

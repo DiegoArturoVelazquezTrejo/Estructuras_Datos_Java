@@ -7,14 +7,14 @@ public class ListaColaPilaDibujable<T extends Comparable<T>>{
   /* Lista con los elementos que se agregarán a la estructura de datos*/
   private Lista<T> elementos;
   /*Cadena que contendrá la representación en SVG del árbol */
-  private String estructuraSVG = "<?xml   version = \'1.0\' encoding = \'utf-8\' ?>\n";
+  private String estructuraSVG = "";
   /**
   * Método que establece las dimensiones del svg en donde se presentará la estructura
   * @param int ancho
   * @param int alto
   */
   public void estableceDimensiones(int ancho,int alto){
-      this.estructuraSVG+= "<svg width="+ancho+"  height= " + alto+ ">";
+      this.estructuraSVG+= "<svg width='"+ancho+"'  height= '" + alto+ "'>\n";
   }
   /**
   * Constructor de la clase ListaColaPilaDibujable
@@ -60,7 +60,7 @@ public class ListaColaPilaDibujable<T extends Comparable<T>>{
   */
   public String dibujaListaCola(boolean lista){
     String res = "";
-    estableceDimensiones(elementos.getLongitud()*115, 300);
+    estableceDimensiones(elementos.getLongitud()*90, 150);
     int coordx = 10;
     int coordY = 50;
     while(elementos.getLongitud() > 1){

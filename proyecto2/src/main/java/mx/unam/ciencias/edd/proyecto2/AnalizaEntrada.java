@@ -74,6 +74,13 @@ public class AnalizaEntrada{
         break;
       case "grafica":
         this.estructura = EstructuraDatos.GRAFICA;
+        break;
+      case "moniticulominimo":
+        this.estructura = EstructuraDatos.MONTICULOMINIMO;
+        break;
+      case "monticulo":
+        this.estructura = EstructuraDatos.MONTICULOMINIMO;
+        break;
       }
   }
   /**
@@ -113,33 +120,28 @@ public class AnalizaEntrada{
   * Método para obtener la representación de datos de una gráfica
   */
   public String obtieneGrafica(){
-    DibujaGrafica<Integer> dg = new DibujaGrafica<>(datos);
-    String numero = "";
-    int conexion1, conexion2;
-    conexion1 = conexion2 = 0;
-    String conexiones;
-    try{
-      conexiones = contenido.split(":")[1];
-    }catch(Exception e){
-      return "No se ha ingresado el separador para gráficas";
+
+    Lista<Integer> vertices = new Lista<>();
+    String[] datos = contenido.split(" ");
+    int[] numeros = new int[datos.length];
+    int data1, data2;
+    for(int i = 1; i < datos.length; i++){
+      try{
+        data1 = Integer.parseInt(datos[i]);
+        numeros[i] = data1;
+        if(!vertices.contiene(data1))
+          vertices.agregaFinal(data1);
+      }catch(Exception e){}
     }
-    for(int i = 0; i < conexiones.length(); i++){
-      if(Character.isLetter(conexiones.charAt(i))) return "Revisa tu entrada";
-      if(conexiones.charAt(i) != '-' && conexiones.charAt(i) != ','){
-        if(esNumero(Character.toString(conexiones.charAt(i)))) numero+=conexiones.charAt(i);
-      }else if(conexiones.charAt(i) == '-'){
-        try{
-          conexion1 = Integer.parseInt(numero);
-        }catch(Exception e){}
-        numero = "";
-      }else if(conexiones.charAt(i) == ','){
-        try{
-          conexion2 = Integer.parseInt(numero);
-          dg.graf.conecta(conexion1, conexion2);
-        }catch(Exception e){
-          System.out.println("Se ha producido un error para conectar");
-        }
-        numero = "";
+    DibujaGrafica<Integer> dg = new DibujaGrafica<>(vertices);
+    System.out.println(vertices.toString());
+    for(int i = 1; i < datos.length-1; i+=2){
+      try{
+        data1 = numeros[i];
+        data2 = numeros[i+1];
+        dg.graf.conecta(data1, data2);
+      }catch(Exception e){
+        System.out.println("Se ha producido un error para conectar");
       }
     }
     return dg.dibujaGrafica();
