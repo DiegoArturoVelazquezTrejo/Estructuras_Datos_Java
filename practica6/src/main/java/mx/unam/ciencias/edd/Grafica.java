@@ -397,4 +397,35 @@ public class Grafica<T> implements Coleccion<T> {
           if(vertice.get().equals(elemento)) return vertice;
       return null;
     }
+    /* Método que colorea el número de componentes conexas de la gráfica */
+  private void coloreaComponenteConexa(Vertice v){
+      Cola<Vertice> q = new Cola<>();
+      setColor(v, Color.NEGRO);
+      q.mete(v);
+      while(!q.esVacia()){
+        v = q.saca();
+        for(Vertice w : v.vecinos)
+          if(w.getColor().equals(Color.ROJO)){
+            setColor(w, Color.NEGRO);
+            q.mete(w);
+          }
+      }
+  }
+  /* Método que calcula el número de componentes conexas de la gráfica */
+  public int calculaComponentesConexas(){
+    paraCadaVertice((v) -> setColor(v, Color.ROJO));
+    boolean c;
+    int n=0;
+    do{
+      c=false;
+      for(Vertice v: vertices) {
+        if(v.getColor() !=Color.ROJO)
+          continue;
+        c=true;
+        coloreaComponenteConexa(v);
+        n++;
+      }
+    }while(c);
+    return n;
+  }
 }

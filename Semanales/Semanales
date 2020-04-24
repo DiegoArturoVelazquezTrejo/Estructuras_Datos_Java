@@ -1,0 +1,80 @@
+¿Qué propiedades deben de cumplir los árboles rojinegros?
+1. Todos los vértices son rojos o son negros.
+2. La raíz es negra.
+3. Todas las hojas son negras.
+4. Un vértice rojo siempre tiene dos hijos negros
+5. Para todo vertice del arbol, todas las trayectorias a alguna de sus hojas tiene la misma cantidad de vértices negros.
+
+¿Qué propiedades de los árboles rojinegros garantizan que estén balanceados?
+ 4 y 5
+
+ ¿Qué complejidad tiene agregar un elemento a un árbol rojinegro con n elementos?
+O(log n)
+
+¿En qué caso del algoritmo para rebalancear al agregar se hace recursión?
+El caso 3
+
+¿Qué caso del algoritmo para rebalancear al agregar no termina, sino que continúa al siguiente?
+El caso 4
+----------------------------------------------------------------------------------------------------------------------------
+
+Dado el árbol rojinegro, agrégale el elemento 8 de tal forma que siga siendo rojinegro.
+Usa la sintaxis N{4}(R{2},N{6}) para describir cada vértice y sus dos hijos; si un vértice sólo
+tiene hijo izquierdo, usa N{n}(R{m},{}); si sólo tiene derecho usa N{n}({},R{m}).
+N{4}(R{2}(N{1},N{3}), R{6}(N{5}, N{7}({ }, R{8})))
+
+Al árbol resultante de la pregunta anterior, elimínale el elemento 4 de tal forma que siga siendo rojinegro válido.
+Usa la misma sintaxis que en la pregunta anterior.
+N{3}(R{2}(N{1}, {}), R{6}(N{5}, N{7}({}, R{8})))
+
+En el algoritmo para rebalancear después de eliminar, ¿qué casos no terminan, sino que continúan a otros casos?
+Casos 2 y 5
+
+En el algoritmo para rebalancear después de eliminar, ¿en qué caso se hace recursión?
+ Caso 3
+
+ ¿Cuál es la complejidad en tiempo de eliminar un elemento de un árbol rojinegro? JUSTIFICA.
+ Como la complejidad está acotada por la altura que en un árbol rojinegro siempre
+ es log(n), sabemos que el peor caso es que vaya de las hojas a la raíz el algorito de rebalancea, por lo que es O(log(n)) (por el caso3) .
+----------------------------------------------------------------------------------------------------------------------------
+
+ En un árbol binario, al girar un vértice v a la izquierda, ¿qué vértices en el subárbol que originalmente tiene a v como raíz cambian de altura?
+ Si giramos sobre un vértice v a la izquierda/derecha, los vértices que posiblemente cambian de altura es v y su hijo derecho/izquierdo, respectivamente.
+
+ En un árbol AVL, ¿qué propiedad cumplen todos los vértices que garantiza que estén balanceados?
+ La diferencia de las alturas de los subárboles izquierdo y derecho de un vértice a lo mucho será -1, 0, 1.
+
+
+ En general, ¿cuáles árboles tienen menor altura; los rojinegros o los AVL?
+ Los rojinegros tienen más altura que los AVL (en promedio), sin embargo los árboles rojinegros resultan ser más eficientes que los árboles AVL.
+
+ En un árbol AVL, ¿qué es el balance de un vértice?
+ El balance de un vértice se define como:
+ LA DIFERENCIA DE LA ALTURA DEL VÉRTICE IZQUIERDO MENOS LA ALTURA DEL VÉRTICE DERECHO.
+
+ Al rebalancear un árbol AVL después de agregar un elemento, ¿cuántos giros realiza el algoritmo si encuentra un vértice v con balance -2?
+ Dos, si el vértice derecho de v tiene balance 1; uno si tiene balance 0 o -1. A lo más dos es respuesta válida.
+----------------------------------------------------------------------------------------------------------------------------
+
+ Define qué es una gráfica.
+ Definimos a una gráfica G como G = (V(G), E(G)), en donde el conjunto V(G) denota los vértices y E(G) a las aristas. Que modelan las relaciones entre los vértices.
+ Los elementos de E(G) son subconjunto del producto cartesiano de V X V .
+
+ Da dos ejemplos de cosas que una persona común y corriente se encuentre o use todos los días que se pueda modelar con una gráfica.
+ Para modelar relaciones entre sujetos.
+ Para protocolos de enroutamiento.
+ Para modelar ciudades, y hallar trayectorias mínimas o máximas.
+
+ Define qué es una trayectoria en una gráfica.
+ Una trayectoria en una gráfica G es un camino. Que consiste en vértices de la gáfica tal que los vértices son distintos (no repiten).
+  T es de la forma v1, v2, v3 ...., vk en donde para todo vi está en V(G)  y i está en {1,2,..., k}
+
+  Define qué es que una gráfica sea conexa.
+  Una gráfica es conexa si para toda partición A1, A2 de los vértices, para todo vértice de A1 existe un arista a algún vértice de A2.
+  También podemos decir que para todo vértice x, y en V(G) existe una x-y trayectoria.
+
+  Cuál es la complejidad de los algoritmos BFS y DFS en gráficas. Justifica.
+  La complejidad en tiempo para BFS es cuadrática, pero se denota como O(|V|+|E|) haciendo referencia a que el conjunto de aristas puede hacer lineal O(n)  la complejidad,
+  pero en su peor caso es cuadrática por la cantidad máxima de aristas de una gráfica.
+  En tiempo su complejidad es lineal pues recorre todos los vértices de la gŕafica.
+  Para el DFS sucede lo mismo, lo único que cambia es la estructura de datos que se usa. Entonces podemos decir que su complejidad en tiempo también es O(|V|+|E|) y en espacio O(n).

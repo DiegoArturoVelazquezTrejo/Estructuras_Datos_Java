@@ -137,7 +137,6 @@ public class AnalizaEntrada{
       }catch(Exception e){}
     }
     DibujaGrafica<Integer> dg = new DibujaGrafica<>(vertices);
-    System.out.println(vertices.toString());
     for(int i = 1; i < datos.length-1; i+=2){
       try{
         data1 = numeros[i];
