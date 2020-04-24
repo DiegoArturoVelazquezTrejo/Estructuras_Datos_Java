@@ -14,7 +14,7 @@ public class Proyecto2{
       try{
           contenido = LectorEntrada.leerArchivo(args[0]);
       } catch(IOException e){
-          System.out.println(e.toString());
+          System.out.println("Se ha producido un error leyendo el archivo "+args[0]);
       }
     }
     /*  El usuario ingresará la información por la entrada estándar */
