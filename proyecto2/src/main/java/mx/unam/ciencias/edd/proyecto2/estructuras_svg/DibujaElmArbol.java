@@ -44,8 +44,8 @@ public class DibujaElmArbol{
       colorletra = "white";
     else
       colorletra = "Black";
-    return "<circle cx= '"+x+"' cy= '"+y+"' r='8' stroke='black' fill='"+color+"'  /> \n<text x= '"+x+"' y= '"+y1+
-    "' text-anchor='middle' fill='"+ colorletra+"' font-size='8px' font-family='Arial' dy='.1em'>"+
+    return "<circle cx= '"+x+"' cy= '"+y+"' r='12' stroke='black' fill='"+color+"'  /> \n<text x= '"+x+"' y= '"+y1+
+    "' text-anchor='middle' fill='"+ colorletra+"' font-size='10px' font-family='Arial' dy='.1em'>"+
     vertice.get()+"</text>\n";
   }
 
@@ -71,7 +71,7 @@ public class DibujaElmArbol{
   public static String dibujaEtiqueta(int x, int y, String etiqueta){
     int y1 = y-3;
     int x1 = x-2;
-    return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='black' font-size='8px' font-family='Arial' dy='.3em'>"+
+    return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='black' font-size='10px' font-family='Arial' dy='.3em'>"+
     etiqueta+"</text>\n";
   }
   /**

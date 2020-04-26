@@ -60,14 +60,14 @@ public class ListaColaPilaDibujable<T extends Comparable<T>>{
   */
   public String dibujaListaCola(boolean lista){
     String res = "";
-    estableceDimensiones(elementos.getLongitud()*90, 150);
+    estableceDimensiones(elementos.getLongitud()*120, 150);
     int coordx = 10;
-    int coordY = 50;
+    int coordY = 30;
     while(elementos.getLongitud() > 1){
       /* Eliminamos el primer elemento, lo guardamos y lo representamos en svg*/
       T elemento = elementos.eliminaPrimero();
       res+= DibujaElementosNodos.dibujaNodo(coordx, coordY, elemento.toString(), lista);
-      coordx+=85;
+      coordx+=120;
     }
     /* Agregamos el último elemento de la lista*/
     res+=DibujaElementosNodos.dibujaCuadrado(coordx, coordY, elementos.eliminaPrimero().toString());
@@ -78,13 +78,13 @@ public class ListaColaPilaDibujable<T extends Comparable<T>>{
   */
   public String dibujaPila(){
     String res = "";
-    estableceDimensiones(80,elementos.getLongitud()*40);
+    estableceDimensiones(100,elementos.getLongitud()*70);
     Lista<T> reversa = elementos.reversa();
     int coordY = 40;
     while(reversa.getLongitud() > 0){
       T elemento = reversa.eliminaPrimero();
       res+=DibujaElementosNodos.dibujaCuadrado(10, coordY, elemento.toString());
-      coordY+=30;
+      coordY+=60;
     }
     return res+"</svg>";
   }

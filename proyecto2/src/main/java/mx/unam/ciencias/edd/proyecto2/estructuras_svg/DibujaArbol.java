@@ -16,9 +16,13 @@ public class DibujaArbol<T extends Comparable<T>>{
   /**
   * Método que establece las dimensiones del svg en donde se presentará el árbol
   */
-  public void estableceDimensiones(){
-    if(this.elementos.getLongitud() > 0)
-      this.arbolSVG+= "<svg width='"+(elementos.getLongitud()*30)+"'  height= '" + elementos.getLongitud()*15+ "' >\n";
+  public void estableceDimensiones(EstructuraDatos estructura){
+    if(this.elementos.getLongitud() > 0 && estructura != EstructuraDatos.ARBOLORDENADO){
+      int altura = (int)Math.floor(Math.log(elementos.getLongitud())/Math.log(2));
+      this.arbolSVG+= "<svg width='"+(elementos.getLongitud()*50)+"'  height= '" + altura*80+ "' >\n";
+    }else{
+      this.arbolSVG+= "<svg width='"+(elementos.getLongitud()*50)+"'  height= '" + elementos.getLongitud()*50+ "' >\n";
+    }
   }
   /**
   * Constructor de la clase DibujaArbol
@@ -26,10 +30,11 @@ public class DibujaArbol<T extends Comparable<T>>{
   */
   public DibujaArbol(Lista<T> l){
     this.elementos = l;
-    estableceDimensiones();
   }
 
   public String dibujaArbol(EstructuraDatos estructura){
+    /* Establecemos dimensiones con base en el tipo de árbol */
+    estableceDimensiones(estructura);
     /* En caso de no tener elementos, no se dibuja nada */
     if(elementos.getLongitud() == 0)
       return "";
@@ -82,13 +87,13 @@ public class DibujaArbol<T extends Comparable<T>>{
         verticesEnDerecho = DibujaElmArbol.cuentaVerticesSubarbol(raiz.derecho());
 
       /* Calculamos la coordenada en x de la raíz */
-      int xNueva = verticesEnIzquierdo*30+30;
+      int xNueva = verticesEnIzquierdo*40+40;
       /* Inicializamos la coordenada en y de la raíz */
       int yNueva = 30;
       /* Calculamos el límite inferior del margen del arbol */
       int limiteInferior = 0;
       /* Calculamos el límite supperior del margen del arbol */
-      int limiteSuperior = xNueva + (verticesEnDerecho)*30;
+      int limiteSuperior = xNueva + (verticesEnDerecho)*40;
 
       String izq , der;
       izq = der = "";
@@ -122,13 +127,13 @@ public class DibujaArbol<T extends Comparable<T>>{
       verticesEnDerecho = DibujaElmArbol.cuentaVerticesSubarbol(raiz.derecho());
 
     /* Calculamos la coordenada en x de la raíz */
-    int xNueva = verticesEnIzquierdo*30+30;
+    int xNueva = verticesEnIzquierdo*40+40;
     /* Inicializamos la coordenada en y de la raíz */
     int yNueva = 30;
     /* Calculamos el límite inferior del margen del arbol */
     int limiteInferior = 0;
     /* Calculamos el límite supperior del margen del arbol */
-    int limiteSuperior = xNueva + (verticesEnDerecho)*30;
+    int limiteSuperior = xNueva + (verticesEnDerecho)*40;
     /* Obtenemos las respectivas etiquetas de cada vértice en caso de ser avl */
     String etiqueta, balance_altura;
     etiqueta = balance_altura = "";
@@ -137,7 +142,7 @@ public class DibujaArbol<T extends Comparable<T>>{
     /* Si es arbol avl creamos la etiqueta del nodo, sino, cambiamos el color del nodo por NEGRO */
     if(estructura.equals(EstructuraDatos.ARBOLAVL)){
       balance_altura = raiz.toString().substring(raiz.toString().length()-4, raiz.toString().length());
-      etiqueta = DibujaElmArbol.dibujaEtiqueta(xNueva+3, yNueva-9, balance_altura);
+      etiqueta = DibujaElmArbol.dibujaEtiqueta(xNueva+5, yNueva-12, balance_altura);
     }else
       color = Color.NEGRO;
     String izq , der;
@@ -165,10 +170,10 @@ public class DibujaArbol<T extends Comparable<T>>{
       return "";
     /* Recalculamos la nueva coordenada en X, Y */
     int xNueva = DibujaElmArbol. calculaMitad(inferior, superior);
-    int coordYNueva = coordYAnterior + 30;
-    /* Primero dibujamos el arista del vértice pasado al nuemo vértice */
+    int coordYNueva = coordYAnterior + 40;
+    /* Primero dibujamos el arista del vértice pasado al nuevo vértice */
     String arista;
-    int coordXAux = (v.padre().hayIzquierdo() && v.padre().izquierdo() == v) ? coorXAnterior -8  : coorXAnterior + 8;
+    int coordXAux = (v.padre().hayIzquierdo() && v.padre().izquierdo() == v) ? coorXAnterior -12  : coorXAnterior + 12;
     arista = DibujaElmArbol.dibujaArista(coordXAux, coordYAnterior, xNueva, coordYNueva);
 
     /* Tenemos que meternos en el lío de los colores */
@@ -185,8 +190,8 @@ public class DibujaArbol<T extends Comparable<T>>{
       /* Obtenemos la subcadena del nodo que representa su altura/balance */
       balance_altura = v.toString().substring(v.toString().length()-4, v.toString().length());
       /*  Creamos la etiqueta txt de svg */
-      coordXAux = (v.padre().hayIzquierdo() && v.padre().izquierdo() == v) ? xNueva-8 : xNueva+8;
-      etiqueta = DibujaElmArbol.dibujaEtiqueta(coordXAux, coordYNueva-8, balance_altura);
+      coordXAux = (v.padre().hayIzquierdo() && v.padre().izquierdo() == v) ? xNueva-12 : xNueva+12;
+      etiqueta = DibujaElmArbol.dibujaEtiqueta(coordXAux, coordYNueva-12, balance_altura);
     }
     /* Caso base que es cuando el vértice es hoja (Caso base 2) */
     if(DibujaElmArbol.esHoja(v))
