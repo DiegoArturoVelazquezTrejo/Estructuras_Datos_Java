@@ -100,5 +100,45 @@ public class Practica8 {
         for (VerticeGrafica<String> v : dijkstra)
             s += v.get() + ", ";
         System.out.println(s);
+
+        /* Algoritmo de Prim */
+        System.out.print("Árbol Generador de Peso Mínimo: ");
+        Grafica<String> subGrafica = grafica.arbolPesoMinimo();
+        System.out.println(subGrafica.toString());
+
+
+
+        /**              4     5      3
+        *             h-----a-------b----c
+        *          7 |      | 3     | 1
+        *            |----- I       e
+        *                   |
+        *                 1_|_1
+        *                 J    K
+        *
+        **/
+        Grafica<String> grafica2 = new Grafica<String>();
+        grafica2.agrega("a");
+        grafica2.agrega("b");
+        grafica2.agrega("c");
+        grafica2.agrega("e");
+        grafica2.agrega("h");
+        grafica2.agrega("i");
+        grafica2.agrega("j");
+        grafica2.agrega("k");
+
+        grafica2.conecta("a", "b", 5);
+        grafica2.conecta("a", "i", 3);
+        grafica2.conecta("b", "c", 3);
+        grafica2.conecta("b", "e", 1);
+        grafica2.conecta("a", "h", 4);
+        grafica2.conecta("h", "i", 7);
+        grafica2.conecta("i", "j", 1);
+        grafica2.conecta("i", "k", 1);
+
+        /* Algoritmo de Prim */
+        Grafica<String> arbolPesoMinimo = grafica2.arbolPesoMinimo();
+        System.out.print("Árbol Generador de Peso Mínimo: "); 
+        System.out.println(arbolPesoMinimo.toString());
     }
 }

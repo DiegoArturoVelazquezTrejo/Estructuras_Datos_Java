@@ -656,7 +656,7 @@ public class Grafica<T> implements Coleccion<T> {
       }
       return trayectoria;
     }
-    
+
     /* Método para inicializar las distancias */
     private void inicializaDistancias(){
       // Inicializamos todas las distancias a infinito
@@ -715,4 +715,54 @@ public class Grafica<T> implements Coleccion<T> {
       // Vamos a reconstruir la trayectoria
       return reconstruyeTrayectoria(origen, destino, true);
     }
+    /**
+    * Algoritmo de Prim para hallar el árbol de peso mínimo dentro de una gráfica
+    */
+    public Grafica<T> arbolPesoMinimo(){
+      /* Primero checamos los casos en donde la gráfica no ses válida para el algoritmo de Prim */
+      if(aristas == 0 ) throw new NoSuchElementException("No se ha encontrado una gráfica");
+      /* Primero checamos los casos en donde la gráfica no ses válida para el algoritmo de Prim */
+      if(!esConexa())   throw new IllegalStateException("La gráfica no es CONEXA");
+      /* Preparamos todos los vértices para estudiarlos */
+      paraCadaVertice(v -> setColor(v, Color.ROJO));
+      inicializaDistancias();
+      vertices.getPrimero().distancia = 0;
+      return algoritmoPrim();
+    }
+    /**
+    * Auxiliar del algoritmo de prim
+    */
+    private Grafica<T> algoritmoPrim(){
+      Vertice vertice = vertices.getPrimero();
+      Grafica<T> subGrafica = new Grafica<T>();
+      // Creamos un minHeap
+      MonticuloMinimo<Vertice> monticuloVertices = new MonticuloMinimo<>(vertices);
+      while(!monticuloVertices.esVacia()){
+        /* Obtenemos el vértice con menor peso del montículo */
+        vertice = monticuloVertices.elimina();
+        /* Si el vértice tiene color rojo es que no ha sido agregado a la gráfica de peso mínimo */
+        if(vertice.getColor() == Color.ROJO){
+              subGrafica.agrega(vertice.get());
+              setColor(vertice, Color.NEGRO);
+        }
+        /* Recorremos los vecinos del vértice para actualizar sus distancias en caso de ser necesario */
+        for(Vecino vecino_del_vertice : vertice.vecinos){
+          /* Si el vértice tiene un peso mayor, se actualiza */
+          if(vecino_del_vertice.vecino.distancia > vecino_del_vertice.peso && vecino_del_vertice.vecino.color != Color.NEGRO){
+            vecino_del_vertice.vecino.distancia = vecino_del_vertice.peso;
+            /* Reordenamos el montículo sobre l actualización de la distancia del vértice */
+            monticuloVertices.reordena(vecino_del_vertice.vecino);
+          }
+        }
+        /* Ahora vamos a conectar el vértice en la gráfica de peso mínimo */
+        for(Vecino vec : vertice.vecinos){
+          if(vec.getColor() == Color.NEGRO ){
+            subGrafica.conecta(vec.get(), vertice.get());
+            if(vertice.vecinos.getLongitud() !=1) vec.vecino.distancia = Double.POSITIVE_INFINITY;
+            break;
+          }
+        }
+      }
+      return subGrafica;
+  }
 }
