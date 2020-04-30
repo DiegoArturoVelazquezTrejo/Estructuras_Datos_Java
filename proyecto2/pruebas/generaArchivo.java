@@ -41,14 +41,8 @@ public class GeneraArchivo{
 
   public static String generaGrafica(){
     String string = "";
-    int limite = 40; //(int)(Math.random()*40+1);
+    int limite = (int)(Math.random()*40+1);
     int[] numeros = new int[limite];
-    for(int i = 0; i < limite; i++){
-      for(int j = 0; j < limite; j++){
-        string+=Integer.toString(i) + " "+ Integer.toString(j);
-      }
-    }
-    /*
     for(int i = 0; i < limite; i++)
       numeros[i] = (int)(Math.random()*40+1);
     for(int i = 0; i < limite/2; i++){
@@ -56,7 +50,6 @@ public class GeneraArchivo{
       int numero2 = (int)(Math.random()*limite);
       string+=Integer.toString(numeros[numero1]) + " "+ Integer.toString(numeros[numero2]);
     }
-    */
     return string;
   }
   /** Método para escribir sobre un archivo de texto

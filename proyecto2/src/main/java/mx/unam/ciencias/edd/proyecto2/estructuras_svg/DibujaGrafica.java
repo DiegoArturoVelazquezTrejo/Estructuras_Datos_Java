@@ -93,8 +93,10 @@ public class DibujaGrafica<T extends Comparable<T>>{
   */
   public String dibujaNodo(double x, double y, T elemento){
     double y1 = y+2;
-    String colorletra = "Black";
-    return "<circle cx= '"+x+"' cy= '"+y+"' r='10' stroke='black' fill='white'  />\n <text x= '"+x+"' y= '"+y1+
+    String colorletra = "white";
+    String[] colores = {"black", "red", "blue"};
+    String color = colores[((int)(Math.random()*2))];
+    return "<circle cx= '"+x+"' cy= '"+y+"' r='10' stroke='blue' fill='"+color+"'  />\n <text x= '"+x+"' y= '"+y1+
     "' text-anchor='middle' fill='"+ colorletra+"' font-size='8px' font-family='Arial' dy='.1em'>"+
     elemento.toString()+"</text>\n";
   }

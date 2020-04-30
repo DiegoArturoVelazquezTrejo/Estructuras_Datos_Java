@@ -1,5 +1,1 @@
-Lista
-# mi primer elemento
-1 texto sin almohadilla
-# mi segundo elemento
-2
+grafica 30 3214 4025 55 435 384 2123 440 3212 2921 2129 3532 29

@@ -1,8 +1,40 @@
 <svg width='700'  height= '420' >
-<circle cx= '250.0' cy= '200.0' r='10' stroke='black' fill='white'  />
- <text x= '250.0' y= '202.0' text-anchor='middle' fill='Black' font-size='8px' font-family='Arial' dy='.1em'>2</text>
-<circle cx= '650.0' cy= '200.0' r='10' stroke='black' fill='white'  />
- <text x= '650.0' y= '202.0' text-anchor='middle' fill='Black' font-size='8px' font-family='Arial' dy='.1em'>1</text>
-<line x1='250.0' y1='192.0' x2='650.0' y2='192.0' style='stroke:black; stroke-width:1'></line>
-<line x1='650.0' y1='192.0' x2='250.0' y2='192.0' style='stroke:black; stroke-width:1'></line>
+<circle cx= '250.0' cy= '200.0' r='10' stroke='blue' fill='black'  />
+ <text x= '250.0' y= '202.0' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>2123</text>
+<circle cx= '307.0' cy= '349.82489048806724' r='10' stroke='blue' fill='red'  />
+ <text x= '307.0' y= '351.82489048806724' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>440</text>
+<circle cx= '364.0' cy= '390.56577748842665' r='10' stroke='blue' fill='black'  />
+ <text x= '364.0' y= '392.56577748842665' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>3212</text>
+<circle cx= '421.0' cy= '407.88633100848574' r='10' stroke='blue' fill='red'  />
+ <text x= '421.0' y= '409.88633100848574' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>2921</text>
+<circle cx= '478.0' cy= '408.030300711785' r='10' stroke='blue' fill='red'  />
+ <text x= '478.0' y= '410.030300711785' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>2129</text>
+<circle cx= '535.0' cy= '391.0386699023167' r='10' stroke='blue' fill='black'  />
+ <text x= '535.0' y= '393.0386699023167' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>3532</text>
+<circle cx= '592.0' cy= '350.84033513166605' r='10' stroke='blue' fill='black'  />
+ <text x= '592.0' y= '352.84033513166605' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>29</text>
+<circle cx= '650.0' cy= '200.0' r='10' stroke='blue' fill='red'  />
+ <text x= '650.0' y= '202.0' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>30</text>
+<circle cx= '584.0' cy= '61.527780376260296' r='10' stroke='blue' fill='black'  />
+ <text x= '584.0' y= '63.527780376260296' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>3214</text>
+<circle cx= '518.0' cy= '21.914912871860054' r='10' stroke='blue' fill='red'  />
+ <text x= '518.0' y= '23.914912871860054' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>4025</text>
+<circle cx= '452.0' cy= '10.010000250012496' r='10' stroke='blue' fill='red'  />
+ <text x= '452.0' y= '12.010000250012496' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>55</text>
+<circle cx= '386.0' cy= '20.516491482767833' r='10' stroke='blue' fill='black'  />
+ <text x= '386.0' y= '22.516491482767833' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>435</text>
+<circle cx= '320.0' cy= '58.013158464293355' r='10' stroke='blue' fill='red'  />
+ <text x= '320.0' y= '60.013158464293355' text-anchor='middle' fill='white' font-size='8px' font-family='Arial' dy='.1em'>384</text>
+<line x1='250.0' y1='192.0' x2='307.0' y2='341.82489048806724' style='stroke:black; stroke-width:1'></line>
+<line x1='307.0' y1='341.82489048806724' x2='250.0' y2='192.0' style='stroke:black; stroke-width:1'></line>
+<line x1='364.0' y1='382.56577748842665' x2='421.0' y2='399.88633100848574' style='stroke:black; stroke-width:1'></line>
+<line x1='421.0' y1='399.88633100848574' x2='364.0' y2='382.56577748842665' style='stroke:black; stroke-width:1'></line>
+<line x1='478.0' y1='400.030300711785' x2='535.0' y2='383.0386699023167' style='stroke:black; stroke-width:1'></line>
+<line x1='535.0' y1='383.0386699023167' x2='478.0' y2='400.030300711785' style='stroke:black; stroke-width:1'></line>
+<line x1='650.0' y1='192.0' x2='584.0' y2='69.5277803762603' style='stroke:black; stroke-width:1'></line>
+<line x1='584.0' y1='69.5277803762603' x2='650.0' y2='192.0' style='stroke:black; stroke-width:1'></line>
+<line x1='518.0' y1='29.914912871860054' x2='452.0' y2='18.010000250012496' style='stroke:black; stroke-width:1'></line>
+<line x1='452.0' y1='18.010000250012496' x2='518.0' y2='29.914912871860054' style='stroke:black; stroke-width:1'></line>
+<line x1='386.0' y1='28.516491482767833' x2='320.0' y2='66.01315846429335' style='stroke:black; stroke-width:1'></line>
+<line x1='320.0' y1='66.01315846429335' x2='386.0' y2='28.516491482767833' style='stroke:black; stroke-width:1'></line>
 </svg>
