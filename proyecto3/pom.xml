@@ -44,7 +44,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.edd.proyecto3.Proyecto3</mainClass>
+	      <mainClass>mx.unam.ciencias.edd.proyecto3.graficas.GraficaPastel</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>

@@ -26,22 +26,27 @@ public class GraficaPastel{
   /* Lista con los puntos que se graficarán */
   private Lista<Punto> puntos;
   /* Centro trasladado en X */
-  private int nuevoCentroX = 210;
+  private int nuevoCentroX = 250;
   /* Centro trasladado en Y */
-  private int nuevoCentroY = 210;
+  private int nuevoCentroY = 250;
   /* Radio de la Circunferencia */
   private int radio = 200;
+  /* String con la representación de la gráfica en SVG*/
+  private String cadena = "<?xml    version = \'1.0\' encoding = \'utf-8\' ?>\n<svg width = 520 height = 520>\n";
 
   /* Método que construye los puntos en la gráfica de acuerdo a los datos  */
   public GraficaPastel(Lista<Palabra> palabras, int totalApariciones){
     puntos = new Lista<>();
     double x, y, angulo;
+    float porcentaje;
     angulo = 0;
     for(Palabra palabra : palabras){
-      angulo = angulo + (palabra.getApariciones() * 360)/totalApariciones;
+      // Vamos a checar la asignación del ángulo que al parecer está causando problemas 
+      angulo = angulo + ((palabra.getApariciones() * 360)/totalApariciones);
       x = radio * Math.cos(angulo) + nuevoCentroX;
       y = radio * Math.sin(angulo) + nuevoCentroY;
-      puntos.agrega(new Punto(x, y, palabra.getPalabra(), palabra.getApariciones()/totalApariciones));
+      porcentaje = ((float)palabra.getApariciones()/(float)totalApariciones) * 100;
+      puntos.agrega(new Punto(x, y, palabra.getPalabra(), Math.floor(porcentaje)));
     }
   }
   /* Con el método de grafica pastel, solo tendremos que graficar cada punto con una línea hasta el centro de
@@ -52,16 +57,65 @@ public class GraficaPastel{
   * @return String representación en svg de la gráfica de pastel
   */
   public String pastel(){
-    return "";
+    String linea, etiqueta;
+    cadena+=dibujaCirculo();
+    for(Punto punto : puntos){
+      linea= dibujaLinea(punto.x, punto.y);
+      etiqueta = dibujaEtiqueta(punto.dato, punto.porcentaje, punto.x, punto.y);
+      cadena+=linea+etiqueta;
+    }
+    cadena+="</svg>";
+    return cadena;
+  }
+  /**
+  * Método para dibujar una línea en svg
+  * @param double x1
+  * @param double y1
+  * @return Representación en SVG de una línea
+  */
+  public String dibujaLinea(double x1, double y1){
+    return "<line x1='"+x1+"' y1='"+y1+"' x2= '"+nuevoCentroX+"' y2='" + nuevoCentroY +"' style='stroke:black; stroke-width:1'></line>\n";
+  }
+  /**
+  * Método para dibujar un cículo
+  * @return Círculo en Svg
+  */
+  public String dibujaCirculo(){
+    return "<circle cx="+ nuevoCentroX +" cy="+ nuevoCentroY +" r="+ radio +" stroke='black' stroke-width='3' fill='transparent' />\n";
+  }
+  /**
+  * Método para dibujar la etiqueta del dato
+  * @param String dato
+  * @param double porcentaje
+  * @param double x1
+  * @param double y1
+  * @return representación en svg de la etiqueta del dato
+  */
+  public String dibujaEtiqueta(String dato, double porcentaje, double x1, double y1){
+    double x = 0;
+    if(x1 <= 200 && y1 <= 200) x = x1 +20;
+    if(x1 <= 200 && y1 >= 200) x = x1 +20;
+    if(x1 >= 200 && y1 >= 200) x = x1 -20;
+    if(x1 >= 200 && y1 <= 200) x = x1 -20;
+    return "<text x= '"+x+"' y= '"+y1+"' text-anchor='middle' fill='red' font-size='20px' font-family='Arial' dy='.3em'>"+
+    dato+ " "+porcentaje+"% "+"</text>\n";
   }
 
-  /*
-
-  Necesito un método para hacer una línea desde las coordenadas x, y hasta los dos centros (nuevoCentroX, nuevoCentroY)
-  Necesito un método para hacer una única circunferencia con base en los dos centros trasladados y su radio
-  Necesito un método para hacer la etiqueta que tenga el porcentaje y la palabra
-  Necesito un método para ajustar la width y height de la gráfica
-  Unirlos todos en el método de pastel en donde iterará por punto y utilizará todos los métodos anteriores para graficar
-
+  /**
+  * Método exclusivamente para pruebas
   */
+  public static void main(String[] args){
+    String[] pal = {"informacion", "data", "covid", "automata", "criptografia"};
+    int[] repet = {20, 20,20, 20, 20};
+    Lista<Palabra> palabras = new Lista<>();
+    int repeticiones = 0;
+    int rep = 0;
+    for(int i = 0; i < pal.length; i++){
+      rep = repet[i];
+      palabras.agrega(new Palabra(pal[i], rep));
+      repeticiones+=rep;
+    }
+    GraficaPastel gp = new GraficaPastel(palabras, repeticiones);
+    System.out.println(gp.pastel());
+  }
 }
