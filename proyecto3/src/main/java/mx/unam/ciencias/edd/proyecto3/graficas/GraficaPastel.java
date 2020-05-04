@@ -73,10 +73,11 @@ public class GraficaPastel{
   */
   public String pastel(){
     String linea, etiqueta;
+    int i = 0;
     cadena+=dibujaCirculo();
     for(Punto punto : puntos){
       linea= dibujaLinea(punto.x, punto.y);
-      etiqueta = dibujaEtiqueta(punto.dato, punto.porcentaje, punto.x_etiqueta, punto.y_etiqueta);
+      etiqueta = dibujaEtiqueta(punto.dato, punto.porcentaje, punto.x_etiqueta, punto.y_etiqueta, i++);
       cadena+=linea+etiqueta;
     }
     cadena+="</svg>";
@@ -106,7 +107,10 @@ public class GraficaPastel{
   * @param double y1
   * @return representación en svg de la etiqueta del dato
   */
-  public String dibujaEtiqueta(String dato, double porcentaje, double x1, double y1){
+
+  public String dibujaEtiqueta(String dato, double porcentaje, double x1, double y1, int i){
+    if(i % 2 == 0) y1-=20;
+    else y1+=20;
     String[] colores = {"black", "blue", "orange", "red", "pruple", "brown", "gray", "green", "pink"};
     String color = colores[(int)(Math.random()*colores.length)];
     return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='20px' font-family='Arial' dy='.3em'>"+
@@ -119,7 +123,6 @@ public class GraficaPastel{
   public static void main(String[] args){
     int limite = Integer.valueOf(args[0]);
     String[] pal = {"informacion", "data", "covid", "automata", "criptografia"};
-    int val[] = {24, 20, 27, 9, 17};
     Lista<Palabra> palabras = new Lista<>();
     int repeticiones = 0;
     int rep = 0;
