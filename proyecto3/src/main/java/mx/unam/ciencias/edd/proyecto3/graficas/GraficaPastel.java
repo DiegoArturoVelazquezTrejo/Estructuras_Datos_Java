@@ -123,28 +123,9 @@ public class GraficaPastel{
   * @param String representación en svg del título
   */
   public String dibujaEncabezado(String tit){
-    double coordY = nuevoCentroY-radio-35;
+    double coordY = nuevoCentroY-radio-50;
     double coordX = nuevoCentroX;
     return "<text x= '"+coordX+"' y= '"+coordY+"' text-anchor='middle' fill='black' font-size='15px' font-family='Fira Mono' dy='0.5em'>"+
     tit+"</text>\n";
-  }
-  /**
-  * Método exclusivamente para pruebas
-  */
-  public static void main(String[] args){
-    int limite = Integer.valueOf(args[0]);
-    String[] pal = {"informacion", "data", "covid", "automata", "criptografia"};
-    Lista<Palabra> palabras = new Lista<>();
-    int repeticiones = 0;
-    int rep = 0;
-    for(int i = 0; i < pal.length; i++){
-      rep = (int)(Math.random()*limite);
-      palabras.agrega(new Palabra(pal[i], rep));
-      repeticiones+=rep;
-    }
-    GraficaPastel gp = new GraficaPastel(palabras, repeticiones);
-    try{
-      LectorEntrada.escribirArchivo("res.html",gp.pastel());
-    }catch(IOException e){}
   }
 }

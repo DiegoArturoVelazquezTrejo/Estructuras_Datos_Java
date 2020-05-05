@@ -23,7 +23,7 @@ public class Palabra implements Comparable<Palabra>{
   * @return String
   */
   public String toString(){
-    return "[ "+palabra+" : "+apariciones+" ]";
+    return palabra +" con " + apariciones + " apariciones ";
   }
   /* Método para comparar dos palabras (de acuerdo a su número de apariciones )*/
   @Override

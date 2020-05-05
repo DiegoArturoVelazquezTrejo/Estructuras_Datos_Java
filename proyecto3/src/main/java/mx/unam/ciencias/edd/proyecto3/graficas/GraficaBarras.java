@@ -37,15 +37,15 @@ public class GraficaBarras{
   /* Coordenada en X donde iniciará la gŕafica  */
   private int inicioX = 20;
   /* Coordenada en Y donde iniciará la gŕafica  */
-  private int inicioY = 200;
+  private int inicioY = 350;
   /* Altura máxima de las barras  */
-  private int alturaBarras = 150;
+  private int alturaBarras = 250;
   /* Longitud máxima de las barras */
   private int longitudBarras = 800;
   /* Longitud por cuadrado */
   private double longitudXcuadrado = 0;
   /* String con la representación de la gráfica en SVG*/
-  private String cadena = "<svg width = 900 height = 250 >\n";
+  private String cadena = "<svg width = 900 height = 400 >\n";
 
   /* Método que construye los puntos en la gráfica de acuerdo a los datos  */
   public GraficaBarras(Lista<Palabra> palabras, int totalApariciones){
@@ -117,24 +117,5 @@ public class GraficaBarras{
     double coordX = inicioX + longitudBarras / 2;
     return "<text x= '"+coordX+"' y= '"+coordY+"' text-anchor='middle' fill='black' font-size='15px' font-family='Fira Mono' dy='0.5em'>"+
     tit+"</text>\n";
-  }
-  /**
-  * Método exclusivamente para pruebas
-  */
-  public static void main(String[] args){
-    int limite = Integer.valueOf(args[0]);
-    String[] pal = {"informacion", "data", "covid", "automata", "criptografia"};
-    Lista<Palabra> palabras = new Lista<>();
-    int repeticiones = 0;
-    int rep = 0;
-    for(int i = 0; i < pal.length; i++){
-      rep = (int)(Math.random()*limite);
-      palabras.agrega(new Palabra(pal[i], rep));
-      repeticiones+=rep;
-    }
-    GraficaBarras gp = new GraficaBarras(palabras, repeticiones);
-    try{
-      LectorEntrada.escribirArchivo("res.html",gp.barras());
-    }catch(IOException e){}
   }
 }
