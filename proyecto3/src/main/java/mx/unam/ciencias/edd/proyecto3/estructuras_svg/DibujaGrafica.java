@@ -1,5 +1,7 @@
 package mx.unam.ciencias.edd.proyecto3.estructuras_svg;
 import mx.unam.ciencias.edd.*;
+import mx.unam.ciencias.edd.proyecto3.*;
+import java.io.IOException;
 /**
 * Clase para dibujar las estructuras de datos con nodos
 * A pesar que se puede imprimir la gráfica analizando únicamente los datos de entrada,
@@ -31,9 +33,15 @@ public class DibujaGrafica<T extends Comparable<T>>{
   /* Lista con los elementos que se agregarán a la estructura de datos*/
   private Lista<T> elementos;
   /* Gráfica que almacenará los elementos */
-  public Grafica<T> graf = new Grafica<>();
+  private Grafica<T> graf = new Grafica<>();
   /*Cadena que contendrá la representación en SVG del árbol */
   private String estructuraSVG = "";
+  /* Coordenada en X del centro de la circunferencia */
+  private double xInicial = 300;
+  /* Coordenada en Y del centro de la circunferencia*/
+  private double yInicial = 300;
+  /* Radio de la circunferencia */
+  private double radio = 290;
   /**
   * Constructor de la clase DibujaGrafica
   * @param Lista<T> datos
@@ -53,17 +61,6 @@ public class DibujaGrafica<T extends Comparable<T>>{
   */
   public void estableceDimensiones(int ancho,int alto){
       this.estructuraSVG+= "<svg width='"+ancho+"'  height= '" + alto+ "' >\n";
-  }
-  /**
-  * Método que genera Puntos de acuerdo a los elementos de la gráfica (vértices)
-  * @return Lista<Punto> lista con los vértices de la gráfica representados con Puntos
-  */
-  public Lista<Punto> generaPuntos(){
-    Lista<Punto> listaPuntos = new Lista<>();
-    for(T elemento : graf){
-      listaPuntos.agregaFinal(new Punto(0, 0, elemento)); // X va a tener un incremento, Y va a ser producto de una función circular
-    }
-    return listaPuntos;
   }
   /**
   * Método que genera la cadena de los puntos
@@ -94,7 +91,7 @@ public class DibujaGrafica<T extends Comparable<T>>{
   public String dibujaNodo(double x, double y, T elemento){
     double y1 = y+2;
     String colorletra = "Black";
-    return "<circle cx= '"+x+"' cy= '"+y+"' r='10' stroke='black' fill='white'  />\n <text x= '"+x+"' y= '"+y1+
+    return "<circle cx= '"+x+"' cy= '"+y+"' r='10' stroke='black' fill='white'  />\n<text x= '"+x+"' y= '"+y1+
     "' text-anchor='middle' fill='"+ colorletra+"' font-size='8px' font-family='Arial' dy='.1em'>"+
     elemento.toString()+"</text>\n";
   }
@@ -132,68 +129,46 @@ public class DibujaGrafica<T extends Comparable<T>>{
   */
   public String dibujaArista(double x1, double y1, double x2, double y2){
     double y1N, y2N;
-    y1N = (y1 < 200) ? y1+8 : y1 -8;
-    y2N = (y2 < 200) ? y2+8 : y2 -8;
+    y1N = (y1 < yInicial) ? y1+8 : y1 -8;
+    y2N = (y2 < yInicial) ? y2+8 : y2 -8;
     return "<line x1='"+x1+"' y1='"+y1N+"' x2='"+x2+"' y2='" + y2N+"' style='stroke:black; stroke-width:1'></line>\n";
   }
   /**
   * Método que asigna las coordenadas en x, y a cada punto
-  * @param Lista<Punto> listaPuntos
+  * @return lista puntos
   */
-  public void asignaCoordenadas(Lista<Punto> listaPuntos){
-    if(listaPuntos.getLongitud() == 1){
-      listaPuntos.get(0).x = 250;
-      listaPuntos.get(0).y = 200;
-      return;
+  public Lista<Punto> asignaCoordenadas(){
+    Lista<Punto> listaPuntos = new Lista<>();
+    double angulo_por_vertice = 360 / graf.getElementos();
+    double angulo, x, y;
+    angulo = 0;
+    for(T elemento : graf){
+      x = radio * Math.cos(Math.toRadians(angulo)) + xInicial;
+      y = radio * Math.sin(Math.toRadians(angulo)) + yInicial;
+      listaPuntos.agrega(new Punto(x, y, elemento));
+      angulo+=angulo_por_vertice;
     }
-    int mitad = listaPuntos.getLongitud()/2;
-    Lista<Punto> lista2 = new Lista<>();
-    for(int i = 0; i < mitad; i++)
-      lista2.agregaFinal(listaPuntos.eliminaPrimero());
-    /* Vamos a ir imprimiendo la mitad de los nodos por la parte superior de la circunferencia y la otra mitad por la parte inferior*/
-    double xSuperior, xInferior, ySuperior, yInferior;
-    xSuperior = 250;
-    xInferior = 650;
-    ySuperior = yInferior = 200;
-    double deltaX1 = 400/listaPuntos.getLongitud();
-    double deltaX2 = 400/lista2.getLongitud();
-    /* Asignamos coordenadas a la mitad de los vértices en la media circunferencia superior */
-    for(Punto p : listaPuntos){
-      p.x = xSuperior;
-      p.y = ySuperior;
-      xSuperior = xSuperior+deltaX1;
-      ySuperior = funcionCircular(xSuperior, 1);
-    }
-    /* Asignamos coordenadas a la mitad de los vértices en la media circunferencia inferior */
-    for(Punto p : lista2){
-      p.x = xInferior;
-      p.y = yInferior;
-      xInferior = xInferior-deltaX2;
-      yInferior = funcionCircular(xInferior, -1);
-    }
-    for(Punto p : lista2)
-      listaPuntos.agregaFinal(p);
+    return listaPuntos;
   }
-  /**
-  * Ecuación de la circunferencia
-  * @param Int x
-  * @param Int signo (negativo si queremos la parte inferior de la circunferencia, positivo si queremos la parte superior )
-  * @return Double y
-  */
-  public double funcionCircular(double x, int signo){
-    return (signo * Math.sqrt(Math.pow(200,2)-Math.pow((x-450),2))) + 210;
+  /** Método que conecta a dos elementos de la gráfica
+  * @param T elemento 1
+  * @param T elemento 2
+  **/
+  public void conecta(T elemento1, T elemento2){
+    try{
+      graf.conecta(elemento1, elemento2);
+    }catch(IllegalArgumentException e){}
   }
   /**
   * Método para dibujar la gráfica
   * @return String representación en svg de la gráfica
   */
   public String dibujaGrafica(){
-    estableceDimensiones(700, 420);
-    Lista<Punto> listaPuntos = generaPuntos();
-    if(listaPuntos.getLongitud() == 0) return "Gráfica Vacía";
-    asignaCoordenadas(listaPuntos);
+    estableceDimensiones(600, 600);
+    Lista<Punto> listaPuntos = asignaCoordenadas();
     String svgPuntos = dibujaPuntos(listaPuntos);
     String svgAristas = dibujaAristas(listaPuntos);
     return estructuraSVG+svgPuntos+svgAristas+"</svg>";
   }
+
 }
