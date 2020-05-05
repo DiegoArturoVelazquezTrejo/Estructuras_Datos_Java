@@ -19,9 +19,9 @@ public class DibujaArbol<T extends Comparable<T>>{
   public void estableceDimensiones(EstructuraDatos estructura){
     if(this.elementos.getLongitud() > 0 && estructura != EstructuraDatos.ARBOLORDENADO){
       int altura = (int)Math.floor(Math.log(elementos.getLongitud())/Math.log(2));
-      this.arbolSVG+= "<svg width='"+(elementos.getLongitud()*50)+"'  height= '" + altura*80+ "' >\n";
+      this.arbolSVG+= "\n<svg width='"+(elementos.getLongitud()*50)+"'  height= '" + altura*80+ "' >\n";
     }else{
-      this.arbolSVG+= "<svg width='"+(elementos.getLongitud()*50)+"'  height= '" + elementos.getLongitud()*50+ "' >\n";
+      this.arbolSVG+= "\n<svg width='"+(elementos.getLongitud()*50)+"'  height= '" + elementos.getLongitud()*50+ "' >\n";
     }
   }
   /**
@@ -152,7 +152,7 @@ public class DibujaArbol<T extends Comparable<T>>{
     if(raiz.hayDerecho())
       der = dibujaArbol(xNueva, yNueva, raiz.derecho(), xNueva, limiteSuperior);
 
-    return etiqueta + DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, color)+ der + izq+"</svg>";
+    return etiqueta + DibujaElmArbol.dibujaNodo(xNueva, yNueva, raiz, color)+ der + izq+"</svg>\n";
   }
   /**
   * Método para dibujar un árbol binario

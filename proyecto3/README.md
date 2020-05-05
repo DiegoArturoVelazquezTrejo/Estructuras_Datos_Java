@@ -1,10 +1,11 @@
 Estructuras de Datos
 ====================
 
-Proyecto 2
+Proyecto 3
+Generador de Informe de palabras de Archivos de Texto
 -----------------------
 
-### Fecha de entrega:1 mayo, 2020
+### Fecha de entrega:6 Junio, 2020
 
 
 $ mvn compile
@@ -36,12 +37,11 @@ Clases que contiene el proyecto :
 * `Arreglos.java`,
 * `Cola.java`,
 * `Lista.java`,
-* `MeteSaca.java`, 
+* `MeteSaca.java`,
 * `Pila.java`.
 * `MonticuloMinimo.java`.
-
-*No deben modificar de ninguna manera ninguno de los otros archivos de la
-práctica*.
+* `Diccionario.java`.
+* `Conjunto.java`.
 
 
 ### Documentación
@@ -50,5 +50,3 @@ La documentación generada por JavaDoc la pueden consultar aquí:
 
 [Documentación generada por JavaDoc para la práctica
 5](https://aztlan.fciencias.unam.mx/~canek/2020-2-edd/practica5/apidocs/index.html)
-
-

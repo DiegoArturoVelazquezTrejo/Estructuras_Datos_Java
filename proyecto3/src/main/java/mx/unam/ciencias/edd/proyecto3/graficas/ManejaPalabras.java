@@ -1,5 +1,8 @@
 package mx.unam.ciencias.edd.proyecto3.graficas;
 import mx.unam.ciencias.edd.*;
+import mx.unam.ciencias.edd.proyecto3.*;
+import mx.unam.ciencias.edd.proyecto3.estructuras_svg.*;
+import java.io.IOException;
 /**
 * Clase para manejar las palabras que se ingresen y de ahí mandarlas a graficar en barras o en pastel
 */
@@ -26,8 +29,10 @@ public class ManejaPalabras{
     */
     total_palabras = pal.getLongitud();
     int i = 0;
-    for(String palabra : pal)
-      palabras.agrega(new Palabra(palabra, apariciones.get(i++)));
+    for(String palabra : pal){
+      palabras.agrega(new Palabra(palabra, apariciones.get(i)));
+      apariciones_total+=apariciones.get(i++);
+    }
     /* Ordenamos la lista de palabras de acuerdo a las apariciones que tienen para facilitar su gráfica */
     palabras = palabras.mergeSort((a, b) -> b.compareTo(a));
   }
@@ -35,6 +40,7 @@ public class ManejaPalabras{
   * @return Representación en cadena (svg) de la gráfica de pastel
   **/
   public String imprimePastel(){
+    // Chance aquí tenga que hacer un corte de las palabras (a ver )
     GraficaPastel gp = new GraficaPastel(palabras, apariciones_total);
     return gp.pastel();
   }
@@ -42,7 +48,56 @@ public class ManejaPalabras{
   * @return Representación en cadena (svg) de la gráfica de barras
   **/
   public String imprimeBarras(){
-    // Similarmente al método de imprimePastel
-    return "";
+    GraficaBarras gb = new GraficaBarras(palabras, apariciones_total);
+    return gb.barras();
   }
+  /**
+  * Método que genera la representación en cadena de un arbol rojinegro
+  * @param Lista de datos
+  * @return String representación en svg del arbol rojinegro
+  */
+  public String obtieneRojinegro(){
+    // Tengo que generar la lista de mayores apariciones
+    Lista<Integer> mayoresApariciones = new Lista<>();
+    for(Palabra palabra : palabras)
+      mayoresApariciones.agrega(palabra.getApariciones());
+    DibujaArbol ab = new DibujaArbol(mayoresApariciones);
+    return ab.dibujaArbol(EstructuraDatos.ARBOLROJINEGRO);
+  }
+  /**
+  * Método que genera la representación en cadena de un arbol avl
+  * @param Lista de datos
+  * @return String representación en svg del arbol avl
+  */
+  public String obtieneAVL(){
+    // Tengo que generar la lista de mayores apariciones
+    Lista<Integer> mayoresApariciones = new Lista<>();
+    for(Palabra palabra : palabras)
+      mayoresApariciones.agrega(palabra.getApariciones());
+    DibujaArbol ab = new DibujaArbol(mayoresApariciones);
+    return ab.dibujaArbol(EstructuraDatos.ARBOLAVL);
+  }
+  /**
+  * Método exclusivamente para pruebas
+  */
+  public static void main(String[] args){
+    String[] pal = {"informacion", "data", "covid", "automata", "criptografia"};
+    Lista<String> palabras = new Lista<>();
+    Lista<Integer> apariciones = new Lista<>();
+    int rep = 0;
+    for(int i = 0; i < pal.length; i++){
+      rep = (int)(Math.random()*300);
+      palabras.agrega(pal[i]);
+      apariciones.agrega(rep);
+    }
+    ManejaPalabras gp = new ManejaPalabras(palabras, apariciones);
+    try{
+      String pie = gp.imprimePastel();
+      String bar = gp.imprimeBarras();
+      String avl = gp.obtieneAVL();
+      String roj = gp.obtieneRojinegro();
+      LectorEntrada.escribirArchivo("res.html",pie+bar+avl+roj);
+    }catch(IOException e){}
+  }
+
 }

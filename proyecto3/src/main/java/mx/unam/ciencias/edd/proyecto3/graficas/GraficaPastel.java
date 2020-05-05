@@ -74,13 +74,14 @@ public class GraficaPastel{
   public String pastel(){
     String linea, etiqueta;
     int i = 0;
+    cadena+=dibujaEncabezado("Reporte de apariciones de palabras (Gráfica de Pastel)");
     cadena+=dibujaCirculo();
     for(Punto punto : puntos){
       linea= dibujaLinea(punto.x, punto.y);
       etiqueta = dibujaEtiqueta(punto.dato, punto.porcentaje, punto.x_etiqueta, punto.y_etiqueta, i++);
       cadena+=linea+etiqueta;
     }
-    cadena+="</svg>";
+    cadena+="</svg>\n";
     return cadena;
   }
   /**
@@ -113,10 +114,20 @@ public class GraficaPastel{
     else y1+=20;
     String[] colores = {"black", "blue", "orange", "red", "pruple", "brown", "gray", "green", "pink"};
     String color = colores[(int)(Math.random()*colores.length)];
-    return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='20px' font-family='Arial' dy='.3em'>"+
+    return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='20px' font-family='Fira Mono' dy='.3em'>"+
     dato+ " "+porcentaje+"% "+"</text>\n";
   }
-
+  /**
+  * Método para dibujar encabezado
+  * @param String título
+  * @param String representación en svg del título
+  */
+  public String dibujaEncabezado(String tit){
+    double coordY = nuevoCentroY-radio-35;
+    double coordX = nuevoCentroX;
+    return "<text x= '"+coordX+"' y= '"+coordY+"' text-anchor='middle' fill='black' font-size='15px' font-family='Fira Mono' dy='0.5em'>"+
+    tit+"</text>\n";
+  }
   /**
   * Método exclusivamente para pruebas
   */
