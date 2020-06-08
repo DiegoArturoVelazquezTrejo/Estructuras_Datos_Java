@@ -22,21 +22,28 @@ public class ManejaPalabras{
   */
   public ManejaPalabras(Diccionario<String, Integer> diccionario, int porcentaje){
     porcentajeDePalabras = porcentaje;
-    palabras = new Lista<>();
+    Lista<Palabra> palabrasTotales = new Lista<>();
+    palabras  = new Lista<>();
     // Iteramos sobre las llaves del diccionario para obtener las apariciones por palabra
     Iterator<String> iteradorLlaves = diccionario.iteradorLlaves();
-    // Aquí tengo que determinar un corte (15% de las palabras)
-    int corte_palabras = (int)Math.ceil((diccionario.getElementos() * porcentajeDePalabras) / 100);
-    int i = 0;
-    while (iteradorLlaves.hasNext() && i < corte_palabras) {
+    while (iteradorLlaves.hasNext()) {
         String s = iteradorLlaves.next();
-        apariciones_total+=diccionario.get(s);
-        palabras.agrega(new Palabra(s, diccionario.get(s)));
-        i++;
+        //apariciones_total+=diccionario.get(s);  PORCENTAJE ABSOLUTO ALL 100% DE LAS APARICIONES
+        palabrasTotales.agrega(new Palabra(s, diccionario.get(s)));
     }
     total_palabras = diccionario.getElementos();
     /* Ordenamos la lista de palabras de acuerdo a las apariciones que tienen para facilitar su gráfica */
-    palabras = palabras.mergeSort((a, b) -> b.compareTo(a));
+    palabrasTotales = palabrasTotales.mergeSort((a, b) -> b.compareTo(a));
+    // Aquí tengo que determinar un corte (N% de las palabras que utilizaremos)
+    int corte_palabras = (int)Math.ceil((diccionario.getElementos() * porcentajeDePalabras) / 100);
+    Iterator<Palabra> iterador = palabrasTotales.iterator();
+    int i = 0;
+    while(iterador.hasNext() && i < corte_palabras){
+      Palabra pal = iterador.next();
+      apariciones_total+=pal.getApariciones(); // PORCENTAJE RELATIVO AL 15% DE LAS APARICIONES  
+      palabras.agrega(pal);
+      i++;
+    }
   }
   /** Método que imprime la gráfica de pastel
   * @return Representación en cadena (svg) de la gráfica de pastel
@@ -94,24 +101,4 @@ public class ManejaPalabras{
     String a5 = "</div>\n</div>\n</body>\n</html>";
     return a1 +ap+ imprimePastel() + a2 + imprimeBarras() + a3 + obtieneAVL() + a4 + obtieneRojinegro() + a5;
   }
-
-
-
-  /**
-  * Método exclusivamente para pruebas
-  */
-  public static void main(String[] args){
-    String[] pal = {"java","c++","c","javascript","haskell","prolog","python","html","php","matlab","raket","bash"};
-    int rep = 0;
-    Diccionario<String, Integer> diccionario = new Diccionario<String, Integer>();
-    for(int i = 0; i < pal.length; i++){
-      rep = (int)(Math.random()*300);
-      diccionario.agrega(pal[i], rep);
-    }
-    ManejaPalabras gp = new ManejaPalabras(diccionario, 35);
-    try{
-      LectorEntrada.escribirArchivo("res.html",gp.generaHTML());
-    }catch(IOException e){}
-  }
-
 }

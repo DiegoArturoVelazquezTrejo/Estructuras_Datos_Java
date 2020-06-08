@@ -372,7 +372,7 @@ public class Diccionario<K, V> implements Iterable<V> {
         for(int i = 0; i < entradas.length; i++){
           if(entradas[i] != null){
             for(Entrada entrada : entradas[i])
-              res+= String.format("'%d': '%d', ", entrada.llave, entrada.valor);
+              res+= String.format("'%s': '%s', ", entrada.llave, entrada.valor);
           }
         }
         return res+"}";

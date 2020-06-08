@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.text.Normalizer;
+import mx.unam.ciencias.edd.*;
+
 /**
 * Clase para leer la entrada del programa ya sea por consola o por archivo de texto
 */
@@ -36,6 +39,34 @@ public class LectorEntrada{
       l = in.readLine();
     }
     return contenido;
+  }
+  /**
+  * Método para leer un archivo que se pase como entrada
+  * @param String ruta del archivo
+  * @return Diccionario con las palabras ya contadas
+  */
+  public static Diccionario<String, Integer> contarPalabras(String nombre) throws IOException{
+    Diccionario<String, Integer> diccionaro = new Diccionario<String, Integer>();
+    String palabra;
+    FileInputStream fileIn = new FileInputStream(nombre);
+    InputStreamReader isIn = new InputStreamReader(fileIn);
+    BufferedReader in = new BufferedReader(isIn);
+    String l = in.readLine();
+    String[] spl;
+    while(l != null){
+      spl = l.split(" ");
+      for(int i = 0; i < spl.length; i++){
+        palabra = Normalizer.normalize(spl[i].replaceAll("\\P{L}+", "").toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        if(palabra.length() > 0){
+          if(diccionaro.contiene(palabra))
+            diccionaro.agrega(palabra, diccionaro.get(palabra)+1);
+          else
+            diccionaro.agrega(palabra, 1);
+        }
+      }
+      l = in.readLine();
+    }
+    return diccionaro;
   }
   /**
   * Método para leer los datos de la entrada estándar
