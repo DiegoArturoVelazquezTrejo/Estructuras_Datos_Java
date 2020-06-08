@@ -3,6 +3,7 @@ import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto3.*;
 import mx.unam.ciencias.edd.proyecto3.estructuras_svg.*;
 import java.io.IOException;
+import java.util.Iterator;
 /**
 * Clase para manejar las palabras que se ingresen y de ahí mandarlas a graficar en barras o en pastel
 */
@@ -13,26 +14,27 @@ public class ManejaPalabras{
   private int total_palabras;
   /* total de apariciones de todas las palabras */
   private int apariciones_total;
+  /* Variable que nos indica el porcentaje de palabras que se tomará sobre el total para graficar */
+  int porcentajeDePalabras;
   /** Constructor de la clase que recibe datos para graficarlos
-  *  @param Lista<String> palabras del archivo
-  *  @param Lista<Integer> apariciones de cada palabra
+  *  @param Diccionario<String, Integer> diccionario con las palabras
+  *  @param int porcentaje de palabras que se graficará
   */
-  // Vamos a cambiar ambas listas por un diccionario en donde las palabras son la clave y las apariciones son los datos
-  public ManejaPalabras(Lista<String> pal, Lista<Integer> apariciones /* Aquí iría el diccionario*/){
+  public ManejaPalabras(Diccionario<String, Integer> diccionario, int porcentaje){
+    porcentajeDePalabras = porcentaje;
     palabras = new Lista<>();
-    /* Vamos a obtener las claves del diccionario e iterar sobre ellas para agregar palabras a la lista
-      total = diccionario.getLongitud();
-      for(String clave : diccionario.llaves()){
-        apariciones_total+=diccionario.get(palabra);
-        palabras.agrega(new Palabra(clave, diccionario.get(palabra)));
-      }
-    */
-    total_palabras = pal.getLongitud();
+    // Iteramos sobre las llaves del diccionario para obtener las apariciones por palabra
+    Iterator<String> iteradorLlaves = diccionario.iteradorLlaves();
+    // Aquí tengo que determinar un corte (15% de las palabras)
+    int corte_palabras = (int)Math.ceil((diccionario.getElementos() * porcentajeDePalabras) / 100);
     int i = 0;
-    for(String palabra : pal){
-      palabras.agrega(new Palabra(palabra, apariciones.get(i)));
-      apariciones_total+=apariciones.get(i++);
+    while (iteradorLlaves.hasNext() && i < corte_palabras) {
+        String s = iteradorLlaves.next();
+        apariciones_total+=diccionario.get(s);
+        palabras.agrega(new Palabra(s, diccionario.get(s)));
+        i++;
     }
+    total_palabras = diccionario.getElementos();
     /* Ordenamos la lista de palabras de acuerdo a las apariciones que tienen para facilitar su gráfica */
     palabras = palabras.mergeSort((a, b) -> b.compareTo(a));
   }
@@ -57,12 +59,13 @@ public class ManejaPalabras{
   * @return String representación en svg del arbol rojinegro
   */
   public String obtieneRojinegro(){
+    if(palabras == null || palabras.getLongitud() == 0) return "";
     // Tengo que generar la lista de mayores apariciones
     Lista<Integer> mayoresApariciones = new Lista<>();
     for(Palabra palabra : palabras)
       mayoresApariciones.agrega(palabra.getApariciones());
-    DibujaArbol ab = new DibujaArbol(mayoresApariciones);
-    return ab.dibujaArbol(EstructuraDatos.ARBOLROJINEGRO);
+    DibujaArbol ar = new DibujaArbol(mayoresApariciones);
+    return ar.dibujaArbol(EstructuraDatos.ARBOLROJINEGRO);
   }
   /**
   * Método que genera la representación en cadena de un arbol avl
@@ -70,6 +73,7 @@ public class ManejaPalabras{
   * @return String representación en svg del arbol avl
   */
   public String obtieneAVL(){
+    if(palabras == null || palabras.getLongitud() == 0) return "";
     // Tengo que generar la lista de mayores apariciones
     Lista<Integer> mayoresApariciones = new Lista<>();
     for(Palabra palabra : palabras)
@@ -90,20 +94,21 @@ public class ManejaPalabras{
     String a5 = "</div>\n</div>\n</body>\n</html>";
     return a1 +ap+ imprimePastel() + a2 + imprimeBarras() + a3 + obtieneAVL() + a4 + obtieneRojinegro() + a5;
   }
+
+
+
   /**
   * Método exclusivamente para pruebas
   */
   public static void main(String[] args){
     String[] pal = {"java","c++","c","javascript","haskell","prolog","python","html","php","matlab","raket","bash"};
-    Lista<String> palabras = new Lista<>();
-    Lista<Integer> apariciones = new Lista<>();
     int rep = 0;
+    Diccionario<String, Integer> diccionario = new Diccionario<String, Integer>();
     for(int i = 0; i < pal.length; i++){
       rep = (int)(Math.random()*300);
-      palabras.agrega(pal[i]);
-      apariciones.agrega(rep);
+      diccionario.agrega(pal[i], rep);
     }
-    ManejaPalabras gp = new ManejaPalabras(palabras, apariciones);
+    ManejaPalabras gp = new ManejaPalabras(diccionario, 35);
     try{
       LectorEntrada.escribirArchivo("res.html",gp.generaHTML());
     }catch(IOException e){}

@@ -12,3 +12,4 @@ public interface AccionVerticeArbolBinario<T> {
      */
     public void actua(VerticeArbolBinario<T> vertice);
 }
+

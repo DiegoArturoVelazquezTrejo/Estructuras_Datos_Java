@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * después del último.
  */
 public interface IteradorLista<T> extends Iterator<T> {
- 
+
     /**
      * Nos dice si hay un elemento anterior. El método debe regresar
      * <code>true</code>, excepto cuando la lista esté vacía, o el iterador esté

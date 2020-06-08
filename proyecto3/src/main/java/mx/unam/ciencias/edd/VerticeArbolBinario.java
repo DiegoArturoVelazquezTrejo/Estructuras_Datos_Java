@@ -13,7 +13,7 @@ public interface VerticeArbolBinario<T> {
      *         <code>false</code> en otro caso.
      */
     public boolean hayPadre();
- 
+
     /**
      * Nos dice si el vértice tiene vértice izquierdo.
      * @return <code>true</code> si el vértice tiene vértice izquierdo,

@@ -39,7 +39,7 @@ public interface Coleccion<T> extends Iterable<T> {
      * Nos dice si la colección es vacía.
      * @return <code>true</code> si la colección es vacía, <code>false</code> en
      *         otro caso.
-     */ 
+     */
     public boolean esVacia();
 
     /**

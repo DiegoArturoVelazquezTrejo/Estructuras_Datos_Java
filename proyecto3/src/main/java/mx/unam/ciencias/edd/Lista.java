@@ -401,10 +401,10 @@ public class Lista<T> implements Coleccion<T> {
       String s = "[";
       Nodo nodo = cabeza;
       while(nodo != null && !nodo.equals(rabo)){
-        s += String.format("%s, ", nodo.elemento.toString());
+        s += String.format("%s, ", nodo.elemento);
         nodo = nodo.siguiente;
       }
-      s += String.format("%s]", get(longitud-1).toString());
+      s += String.format("%s]", get(longitud-1));
       return s;
     }
 
