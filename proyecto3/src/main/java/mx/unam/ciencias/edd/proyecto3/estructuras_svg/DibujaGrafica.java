@@ -41,7 +41,11 @@ public class DibujaGrafica<T extends Comparable<T>>{
   /* Coordenada en Y del centro de la circunferencia*/
   private double yInicial = 300;
   /* Radio de la circunferencia */
-  private double radio = 290;
+  private double radio = 200;
+  /**
+  * Constructor por omisión
+  */
+  public DibujaGrafica(){}
   /**
   * Constructor de la clase DibujaGrafica
   * @param Lista<T> datos
@@ -91,8 +95,8 @@ public class DibujaGrafica<T extends Comparable<T>>{
   public String dibujaNodo(double x, double y, T elemento){
     double y1 = y+2;
     String colorletra = "Black";
-    return "<circle cx= '"+x+"' cy= '"+y+"' r='10' stroke='black' fill='white'  />\n<text x= '"+x+"' y= '"+y1+
-    "' text-anchor='middle' fill='"+ colorletra+"' font-size='8px' font-family='Arial' dy='.1em'>"+
+    return "<circle cx= '"+x+"' cy= '"+y+"' r='25' stroke='black' fill='white'  />\n<text x= '"+x+"' y= '"+y1+
+    "' text-anchor='middle' fill='"+ colorletra+"' font-size='12px' font-family='Arial' dy='.1em'>"+
     elemento.toString()+"</text>\n";
   }
   /**
@@ -129,8 +133,8 @@ public class DibujaGrafica<T extends Comparable<T>>{
   */
   public String dibujaArista(double x1, double y1, double x2, double y2){
     double y1N, y2N;
-    y1N = (y1 < yInicial) ? y1+8 : y1 -8;
-    y2N = (y2 < yInicial) ? y2+8 : y2 -8;
+    y1N = (y1 < yInicial) ? y1+25 : y1 -25;
+    y2N = (y2 < yInicial) ? y2+25 : y2 -25;
     return "<line x1='"+x1+"' y1='"+y1N+"' x2='"+x2+"' y2='" + y2N+"' style='stroke:black; stroke-width:1'></line>\n";
   }
   /**
@@ -160,11 +164,22 @@ public class DibujaGrafica<T extends Comparable<T>>{
     }catch(IllegalArgumentException e){}
   }
   /**
+  * Método para agregar elementos a la gráfica
+  * @param T elemento
+  */
+  public void agrega(T elemento){
+    try{
+      this.graf.agrega(elemento);
+    }catch(Exception e){
+      System.out.println("No se pueden ingresar elementos repetidos");
+    }
+  }
+  /**
   * Método para dibujar la gráfica
   * @return String representación en svg de la gráfica
   */
   public String dibujaGrafica(){
-    estableceDimensiones(600, 600);
+    estableceDimensiones(650, 650);
     Lista<Punto> listaPuntos = asignaCoordenadas();
     String svgPuntos = dibujaPuntos(listaPuntos);
     String svgAristas = dibujaAristas(listaPuntos);

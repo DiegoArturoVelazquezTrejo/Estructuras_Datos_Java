@@ -2,6 +2,7 @@ package mx.unam.ciencias.edd.proyecto3.graficas;
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto3.*;
 import mx.unam.ciencias.edd.proyecto3.estructuras_svg.*;
+import java.util.NoSuchElementException;
 import java.io.IOException;
 /**
 * Clase para realizar el conteo de las palabras por archivo
@@ -21,9 +22,7 @@ public class ConteoPalabras{
       try{
         Diccionario<String, Integer> dic =  LectorEntrada.contarPalabras(archivo);
         return dic;
-      }catch(IOException e){
-        System.out.println("Se ha producido un error para leer el archivo "+archivo);
-      }
-      return new Diccionario<String, Integer>(); 
+      }catch(IOException e){}
+      throw new NoSuchElementException("No se ha encontrado el archivo");
   }
 }

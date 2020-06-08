@@ -114,7 +114,7 @@ public class GraficaPastel{
     else y1+=20;
     String[] colores = {"black", "blue", "orange", "red", "pruple", "brown", "gray", "green", "pink"};
     String color = colores[(int)(Math.random()*colores.length)];
-    return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='20px' font-family='Fira Mono' dy='.3em'>"+
+    return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='15px' font-family='Fira Mono' dy='.3em'>"+
     dato+ " "+porcentaje+"% "+"</text>\n";
   }
   /**

@@ -28,19 +28,19 @@ public class ManejaPalabras{
     Iterator<String> iteradorLlaves = diccionario.iteradorLlaves();
     while (iteradorLlaves.hasNext()) {
         String s = iteradorLlaves.next();
-        //apariciones_total+=diccionario.get(s);  PORCENTAJE ABSOLUTO ALL 100% DE LAS APARICIONES
+        apariciones_total+=diccionario.get(s);  // PORCENTAJE ABSOLUTO ALL 100% DE LAS APARICIONES
         palabrasTotales.agrega(new Palabra(s, diccionario.get(s)));
     }
     total_palabras = diccionario.getElementos();
     /* Ordenamos la lista de palabras de acuerdo a las apariciones que tienen para facilitar su gráfica */
     palabrasTotales = palabrasTotales.mergeSort((a, b) -> b.compareTo(a));
     // Aquí tengo que determinar un corte (N% de las palabras que utilizaremos)
-    int corte_palabras = (int)Math.ceil((diccionario.getElementos() * porcentajeDePalabras) / 100);
+    int corte_palabras = (diccionario.getElementos() > 20) ? (int)Math.ceil((diccionario.getElementos() * porcentajeDePalabras) / 100) : diccionario.getElementos();
     Iterator<Palabra> iterador = palabrasTotales.iterator();
     int i = 0;
     while(iterador.hasNext() && i < corte_palabras){
       Palabra pal = iterador.next();
-      apariciones_total+=pal.getApariciones(); // PORCENTAJE RELATIVO AL 15% DE LAS APARICIONES  
+      //apariciones_total+=pal.getApariciones(); // PORCENTAJE RELATIVO AL 15% DE LAS APARICIONES
       palabras.agrega(pal);
       i++;
     }
@@ -69,8 +69,13 @@ public class ManejaPalabras{
     if(palabras == null || palabras.getLongitud() == 0) return "";
     // Tengo que generar la lista de mayores apariciones
     Lista<Integer> mayoresApariciones = new Lista<>();
-    for(Palabra palabra : palabras)
-      mayoresApariciones.agrega(palabra.getApariciones());
+    Iterator<Palabra> iterador = palabras.iterator();
+    int i = 0;
+    while(iterador.hasNext() && i < 15){
+      Palabra pal = iterador.next();
+      mayoresApariciones.agrega(pal.getApariciones());
+      i++;
+    }
     DibujaArbol ar = new DibujaArbol(mayoresApariciones);
     return ar.dibujaArbol(EstructuraDatos.ARBOLROJINEGRO);
   }
@@ -83,8 +88,13 @@ public class ManejaPalabras{
     if(palabras == null || palabras.getLongitud() == 0) return "";
     // Tengo que generar la lista de mayores apariciones
     Lista<Integer> mayoresApariciones = new Lista<>();
-    for(Palabra palabra : palabras)
-      mayoresApariciones.agrega(palabra.getApariciones());
+    Iterator<Palabra> iterador = palabras.iterator();
+    int i = 0;
+    while(iterador.hasNext() && i < 15){
+      Palabra pal = iterador.next();
+      mayoresApariciones.agrega(pal.getApariciones());
+      i++;
+    }
     DibujaArbol ab = new DibujaArbol(mayoresApariciones);
     return ab.dibujaArbol(EstructuraDatos.ARBOLAVL);
   }
