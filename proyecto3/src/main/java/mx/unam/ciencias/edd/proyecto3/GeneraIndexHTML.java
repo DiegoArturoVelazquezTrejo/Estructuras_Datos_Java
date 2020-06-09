@@ -73,20 +73,38 @@ public class GeneraIndexHTML{
   * @return representación en string del html del index.html
   */
   public String generaIndexHTML(){
-    String cadena = "<html>\n<head>\n<title>Proyecto 3</title>\n</head>\n<body>\n<h1>Proyecto 3: Analizador de Palabras</h1>\n"+
-    "\n<h3>Facultad de Ciencias, Ciencias de la Computación.</h3>\n<div>\n<h2>Archivos que se analizaron: </h2>\n<ol>\n";
+    String cadena = "<!DOCTYPE html>\n<html lang='en'>\n<title>Analizador de Palabras</title>\n<meta charset='UTF-8'>\n"+
+    "<link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>\n"+
+    "<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato'>\n"+
+    "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>\n"+
+    "\n<body>\n<div class='w3-container w3-display-container w3-padding-16'>\n<h3 class='w3-wide'><b>Estructuras de Datos</b></h3>\n"+
+    "\n</div>\n<div class='w3-content' style='max-width:2000px;'>\n"+
+    "\n<div class='w3-container w3-content w3-center w3-padding-64' style='max-width:800px' id='band'>"+
+    "\n<h2 class='w3-wide'>Analizador de Palabras</h2>\n<p class='w3-opacity'>\n<i>Ciencias de la Computación: Estructuras de Datos</i></p>"+
+    "\n<p class='w3-justify'>Proyecto de estructuras de datos. Analizador de palabras, que realiza el conteo de palabras por archivo"+
+    "\ny en número de apariciones. Además, la gráfica que se presenta abajo indica cuando dos archivos tienen palabras en común con una"+
+    "\nlongitud de caracteres mayor a 7.</p>\n<p class='w3-justify'>Estructuras de Datos utilizadas:</p>\n<br>"+
+    "\n<ol class='w3-wide'><li>Diccionario: Se utilizó para hacer el conteo de apariciones por palabra. </li>"+
+    "\n<li>Listas ligadas: Se utilizaron para ordenar las llaves de los diccionarios. </li>"+
+    "\n<li>Árboles Rojinegros: Se utilizaron para desplegar las apariciones de palabras. </li>"+
+    "\n<li>Árboles Autobalanceables (AVL): Se utilizaron para desplegar las apariciones de palabras. </li>"+
+    "\n<li>Conjuntos: Se utilizaron para hallar la palabras en común entre archivos. </li>"+
+    "\n<li>Gráficas: Se utilizaron para representar a los archivos que comparten palabras. </li>"+
+    "\n</ol></div><div class=' w3-justify w3-container w3-content w3-center w3-padding-64' style='max-width:800px' id='band'>"+
+    "\n<h2>Archivos que se analizaron: </h2><ol>";
 
     String link = "";
     for(Archivo arch : listaArchivos){
       if(arch != null){
-        link = "<a "+" href= "+arch.toString()+">"+ arch.getNombre()+" </a>";
-        cadena+="\n<li>"+link+" tiene "+arch.getTotalPalabras()+" palabras. </li>";
+        link = "<a "+" href= "+arch.toString()+" style='color:blue;'>"+ arch.getNombre()+" </a>";
+        cadena+="\n<li >"+link+" tiene "+arch.getTotalPalabras()+" palabras. </li>";
       }
     }
-    cadena+="\n\n</ol>\n</div>\n<div>\n<label>Gráfica Archivos</label>\n"+
-    "<p>Los archivos que se encuentren conectados en esta gráfica es porque tienen en común palabras con más de 7 dígitos.</p>\n";
+    cadena+="\n</ol></div><div class='w3-black' id='tour'><div class='w3-container w3-content w3-padding-64' style='max-width:800px'>"+
+    "\n<h2 class='w3-wide w3-center'>Relación entre archivos (representada por una gráfica)</h2>"+
+    "\n<p class='w3-opacity w3-center'><i>Aquellos que comparten aristas, tienen palabras en común de al menos 7 caracteres.</i></p><br>";
     cadena+=generaGrafica();
-    return cadena+="\n</div>\n</body>\n</html>";
+    return cadena+="\n</div>\n</div>\n</div>\n</body>\n</html>";
   }
   /**
   * Método para generar la gŕafica de los archivos (aquellos que tienen intersección de palabras)
