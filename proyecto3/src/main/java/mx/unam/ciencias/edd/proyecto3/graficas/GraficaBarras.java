@@ -39,7 +39,7 @@ public class GraficaBarras{
   /* Coordenada en Y donde iniciará la gŕafica  */
   private int inicioY = 350;
   /* Altura máxima de las barras  */
-  private int alturaBarras = 1000;
+  private int alturaBarras = 1200;
   /* Longitud máxima de las barras */
   private int longitudBarras = 800;
   /* Longitud por cuadrado */

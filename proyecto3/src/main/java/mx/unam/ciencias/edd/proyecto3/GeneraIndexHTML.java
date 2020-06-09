@@ -111,15 +111,22 @@ public class GeneraIndexHTML{
   * @return String representación en SVG de la gráfica
   */
   public String generaGrafica(){
+    String etiqueta = "<p class='w3-opacity w3-center'><i>A continuación mostramos las palabras que comparten los archivos. </i></p><br>";
     DibujaGrafica<String> db = new DibujaGrafica<>();
     for(int i = 0; i < listaArchivos.length; i++)
       if(listaArchivos[i] != null) db.agrega(listaArchivos[i].getNombre());
     for(int i = 0; i < listaArchivos.length - 1; i++){
       for(int j = i + 1; j < listaArchivos.length; j++){
-        if(listaArchivos[i] != null && listaArchivos[j] != null && listaArchivos[i].comparaArchivo(listaArchivos[j]))
+        Conjunto<String> interseccion = listaArchivos[i].comparaArchivo(listaArchivos[j]);
+        if(listaArchivos[i] != null && listaArchivos[j] != null && interseccion.getElementos() > 0){
           db.conecta(listaArchivos[i].getNombre(), listaArchivos[j].getNombre());
+          etiqueta+="<p class='w3-justify'>Los archivos "+listaArchivos[i].getNombre()+" y "+listaArchivos[j].getNombre()+" tienen en comun las palabras ";
+          for(String elemento : interseccion)
+            etiqueta+=elemento+" , ";
+          etiqueta+="</p>";
+        }
       }
     }
-    return db.dibujaGrafica();
+    return db.dibujaGrafica()+etiqueta;
   }
 }

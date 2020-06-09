@@ -95,9 +95,10 @@ public class DibujaGrafica<T extends Comparable<T>>{
   public String dibujaNodo(double x, double y, T elemento){
     double y1 = y+2;
     String colorletra = "red";
+    String[] splt = elemento.toString().split("/");
     return "<circle cx= '"+x+"' cy= '"+y+"' r='25' stroke='black' fill='white'  />\n<text x= '"+x+"' y= '"+y1+
     "' text-anchor='middle' fill='"+ colorletra+"' font-size='15px' font-family='Arial' dy='.1em'>"+
-    elemento.toString()+"</text>\n";
+    splt[splt.length - 1].trim()+"</text>\n";
   }
   /**
   * Método para agregar la representación en svg de los aristas
@@ -179,7 +180,7 @@ public class DibujaGrafica<T extends Comparable<T>>{
   * @return String representación en svg de la gráfica
   */
   public String dibujaGrafica(){
-    if(graf.getElementos() == 0) return ""; 
+    if(graf.getElementos() == 0) return "";
     estableceDimensiones(650, 650);
     Lista<Punto> listaPuntos = asignaCoordenadas();
     String svgPuntos = dibujaPuntos(listaPuntos);

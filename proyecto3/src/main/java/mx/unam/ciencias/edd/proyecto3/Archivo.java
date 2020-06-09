@@ -23,7 +23,7 @@ public class Archivo{
   */
   public Archivo(String nombre, Diccionario<String, Integer> diccionario, String nombreOriginal){
     this.nombre = nombre;
-    this.totalPalabras = 0; 
+    this.totalPalabras = 0;
     this.palabras = new Conjunto<String>();
     this.nombreOriginal = nombreOriginal;
     // Tenemos que llenar al conjunto con los elementos del diccionario
@@ -58,13 +58,13 @@ public class Archivo{
   /**
   * Método que compara dos archivos y te dice si tienen en común palabras con más de 7 dígitos
   * @param Archivo
-  * @return boolean true si tienen al menos una palabra en común con más de 7 dígitos, false de lo contrario
+  * @return Intersección de las palabras con más de 7 caracteres 
   */
-  public boolean comparaArchivo(Archivo arch){
+  public Conjunto<String> comparaArchivo(Archivo arch){
     Conjunto<String> interseccion = this.palabras.interseccion(arch.palabras);
-    if(interseccion.getElementos() == 0) return false;
+    if(interseccion.getElementos() == 0) return interseccion;
     for(String elemento : interseccion)
-      if(elemento.length() >= 7) return true;
-    return false;
+      if(elemento.length() < 7) interseccion.elimina(elemento);
+    return interseccion;
   }
 }

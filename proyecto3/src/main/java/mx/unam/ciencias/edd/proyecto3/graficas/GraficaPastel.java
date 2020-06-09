@@ -55,13 +55,23 @@ public class GraficaPastel{
     float porcentaje;
     angulo = 0;
     angulo_pasado = 0;
+    int i = 0;
     for(Palabra palabra : palabras){
       angulo = angulo + ((double)(palabra.getApariciones() * 360)/(double)totalApariciones);
       x = radio * Math.cos(Math.toRadians(angulo)) + nuevoCentroX;
       y = radio * Math.sin(Math.toRadians(angulo)) + nuevoCentroY;
-      angulo_etiqueta = angulo_pasado+((angulo - angulo_pasado)/2);
+      angulo_etiqueta = angulo_pasado + (angulo - angulo_pasado)/3;
       xe = radio * Math.cos(Math.toRadians(angulo_etiqueta)) + nuevoCentroX;
       ye = radio * Math.sin(Math.toRadians(angulo_etiqueta)) + nuevoCentroY;
+      if(i % 2 == 0){
+        ye+=12;
+        xe+=5;
+      }
+      else{
+        ye-=12;
+        xe-=5;
+      }
+      i++;
       porcentaje = ((float)palabra.getApariciones()/(float)totalApariciones) * 100;
       puntos.agrega(new Punto(x, y, palabra.getPalabra(), Math.floor(porcentaje), xe, ye));
       angulo_pasado = angulo;
@@ -119,7 +129,7 @@ public class GraficaPastel{
     String[] colores = {"orange", "red", "#ECFF14","#FA4BEA", "#46FA5B", "pink", "white","#D2F2FF"};
     String color = colores[(int)(Math.random()*colores.length)];
     return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='15px' font-family='Fira Mono' dy='.3em'>"+
-    dato+ " "+porcentaje+"% "+"</text>\n";
+    dato+ " "+(int)porcentaje+"% "+"</text>\n";
   }
   /**
   * Método para dibujar encabezado
