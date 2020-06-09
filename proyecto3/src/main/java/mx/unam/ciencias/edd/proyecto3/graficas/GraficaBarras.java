@@ -39,7 +39,7 @@ public class GraficaBarras{
   /* Coordenada en Y donde iniciará la gŕafica  */
   private int inicioY = 350;
   /* Altura máxima de las barras  */
-  private int alturaBarras = 250;
+  private int alturaBarras = 1000;
   /* Longitud máxima de las barras */
   private int longitudBarras = 800;
   /* Longitud por cuadrado */
@@ -102,7 +102,7 @@ public class GraficaBarras{
     double coorX = punto.x + (longitudXcuadrado)/2;
     double coordY = inicioY-punto.height-10;
     double cY = punto.y + 10;
-    String etiquetaPorcentaje = "<text x= '"+coorX+"' y= '"+coordY+"' text-anchor='middle' fill='#FF0B11' font-size='10px' font-family='Fira Mono' dy='0.5em'>"+
+    String etiquetaPorcentaje = "<text x= '"+coorX+"' y= '"+coordY+"' text-anchor='middle' fill='white' font-size='13px' font-family='Fira Mono' dy='0.5em'>"+
     punto.porcentaje + "%"+"</text>\n";
     return etiquetaPorcentaje+"<text x= '"+coorX+"' y= '"+cY+"' text-anchor='middle' fill='black' font-size='10px' font-family='Fira Mono' dy='0.5em'>"+
     punto.dato+"</text>\n";

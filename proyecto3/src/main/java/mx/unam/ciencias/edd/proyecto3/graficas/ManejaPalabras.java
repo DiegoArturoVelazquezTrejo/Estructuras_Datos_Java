@@ -103,12 +103,26 @@ public class ManejaPalabras{
   * @return String representación en cadena del reporte en html
   */
   public String generaHTML(){
-    String a1 = "<html>\n<body>\n<br><h1 style='align = center; margin-left: 20px; font-family: Courier; '>Informe de Palabras en el Documento 1</h1>\n";
-    String ap = "<div style='margin-left: 20px; margin-right: 20px; border: 3px solid #73AD21; font-family: Garamond'> Lista de palabras: "+ palabras.toString()+"</div>\n<br><div style = 'display: table-cell'>\n";
-    String a2 = "</div>\n<div style = 'display: table-cell'>";
-    String a3 = "</div>\n<div style = 'display: flex; flex-wrap: nowrap;'>\n<div>\n<h3 style = 'background-color: #91D1FF;  padding: 6px; font-family: Garamond; margin-left: 10px; margin-right: 50em; display: table-cell'>Árbol AVL de las palabras con mayores apariciones</h3>";
-    String a4 = "</div>\n<div>\n<h3 style = 'background-color: #91D1FF; padding: 6px; font-family: Garamond; margin-left: 10px; margin-right: 50em; display: table-cell'>Árbol Rojinegro de las palabras con mayores apariciones</h3>";
-    String a5 = "</div>\n</div>\n</body>\n</html>";
-    return a1 +ap+ imprimePastel() + a2 + imprimeBarras() + a3 + obtieneAVL() + a4 + obtieneRojinegro() + a5;
+    String ap = "<!DOCTYPE html>\n<html lang='en'>\n<title>Archivo</title>\n<meta charset='UTF-8'>\n"+
+    "\n<link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>"+
+    "\n<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato'>"+
+    "\n<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>"+
+    "\n<body>\n<div class='w3-container w3-display-container w3-padding-16'>\n<h3 class='w3-wide'><b>Estructuras de Datos</b></h3>\n</div>"+
+    "\n<div class='w3-content' style='max-width:2000px;'><div class='w3-container w3-content w3-center w3-padding-64' style='max-width:1000px' id='band'>"+
+    "\n<h2 class='w3-wide'>Analizador de Palabras</h2>\n<p class='w3-opacity'><i>Ciencias de la Computación: Estructuras de Datos</i></p>\n";
+
+    ap+= "<div style='margin-left: 20px; margin-right: 20px; border: 3px font-family: Garamond'> Lista de palabras: "+ palabras.toString()+"</div>\n<br><div style = 'display: table-cell'>\n";
+    ap+="\n</ol>\n</div>\n<div class='w3-black' id='tour'>\n<div class='w3-container w3-content w3-padding-64' style='max-width:800px'>"+
+    "\n<h2 class='w3-wide w3-center'>Porcentaje de apariciones: las palabras con mayor frecuencia</h2>"+
+    "\n<p class='w3-opacity w3-center'><i>A continuación se presentan los análisis graficados</i></p><br>";
+    ap+=imprimePastel();
+    ap+="\n<h2 class='w3-wide w3-center'>Gráfica de Barras</h2>";
+    ap+=imprimeBarras();
+    ap+="\n<h2 class='w3-wide w3-center'>Árbol Autobalanceable (AVL)</h2>";
+    ap+=obtieneAVL();
+    ap+="\n<h2 class='w3-wide w3-center'>Árbol Rojinegro</h2>";
+    ap+=obtieneRojinegro();
+    ap+="\n</div></div></div></body></html>";
+    return ap;
   }
 }

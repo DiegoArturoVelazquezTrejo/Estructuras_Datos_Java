@@ -91,7 +91,7 @@ public class GraficaPastel{
   * @return Representación en SVG de una línea
   */
   public String dibujaLinea(double x1, double y1){
-    return "<line x1='"+x1+"' y1='"+y1+"' x2= '"+nuevoCentroX+"' y2='" + nuevoCentroY +"' style='stroke:black; stroke-width:1'></line>\n";
+    return "<line x1='"+x1+"' y1='"+y1+"' x2= '"+nuevoCentroX+"' y2='" + nuevoCentroY +"' style='stroke:white; stroke-width:1'></line>\n";
   }
   /**
   * Método para dibujar un cículo
@@ -112,7 +112,7 @@ public class GraficaPastel{
   public String dibujaEtiqueta(String dato, double porcentaje, double x1, double y1, int i){
     if(i % 2 == 0) y1-=20;
     else y1+=20;
-    String[] colores = {"black", "blue", "orange", "red", "pruple", "brown", "gray", "green", "pink"};
+    String[] colores = {"blue", "orange", "red", "pruple", "brown", "gray", "green", "pink"};
     String color = colores[(int)(Math.random()*colores.length)];
     return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='15px' font-family='Fira Mono' dy='.3em'>"+
     dato+ " "+porcentaje+"% "+"</text>\n";
