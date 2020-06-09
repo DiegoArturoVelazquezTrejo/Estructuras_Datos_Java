@@ -109,7 +109,7 @@ public class ManejaPalabras{
     "\n<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>"+
     "\n<body>\n<div class='w3-container w3-display-container w3-padding-16'>\n<h3 class='w3-wide'><b>Estructuras de Datos</b></h3>\n</div>"+
     "\n<div class='w3-content' style='max-width:2000px;'><div class='w3-container w3-content w3-center w3-padding-64' style='max-width:1000px' id='band'>"+
-    "\n<h2 class='w3-wide'>Analizador de Palabras</h2>\n<p class='w3-opacity'><i>Ciencias de la Computación: Estructuras de Datos</i></p>\n";
+    "\n<h2 class='w3-wide'><a href='index.html'>Analizador de Palabras</a></h2>\n<p class='w3-opacity'><i>Ciencias de la Computación: Estructuras de Datos</i></p>\n";
 
     ap+= "<div style='margin-left: 20px; margin-right: 20px; border: 3px font-family: Garamond'> Lista de palabras: "+ palabras.toString()+"</div>\n<br><div style = 'display: table-cell'>\n";
     ap+="\n</ol>\n</div>\n<div class='w3-black' id='tour'>\n<div class='w3-container w3-content w3-padding-64' style='max-width:800px'>"+

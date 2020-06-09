@@ -45,10 +45,13 @@ public class GraficaBarras{
   /* Longitud por cuadrado */
   private double longitudXcuadrado = 0;
   /* String con la representación de la gráfica en SVG*/
-  private String cadena = "<svg width = 900 height = 400 >\n";
+  private String cadena = "<svg width = 900 height = 550 >\n";
 
   /* Método que construye los puntos en la gráfica de acuerdo a los datos  */
   public GraficaBarras(Lista<Palabra> palabras, int totalApariciones){
+    if(palabras.getLongitud() > 13){
+      while(palabras.getLongitud() > 13) palabras.eliminaUltimo();
+    }
     puntos = new Lista<>();
     double x_coordenada, altura, porcentaje;
     x_coordenada = inicioX;
@@ -102,9 +105,9 @@ public class GraficaBarras{
     double coorX = punto.x + (longitudXcuadrado)/2;
     double coordY = inicioY-punto.height-10;
     double cY = punto.y + 10;
-    String etiquetaPorcentaje = "<text x= '"+coorX+"' y= '"+coordY+"' text-anchor='middle' fill='white' font-size='13px' font-family='Fira Mono' dy='0.5em'>"+
+    String etiquetaPorcentaje = "<text x= '"+coorX+"' y= '"+coordY+"' text-anchor='middle' fill='white' font-size='12px' font-family='Fira Mono' dy='0.5em'>"+
     punto.porcentaje + "%"+"</text>\n";
-    return etiquetaPorcentaje+"<text x= '"+coorX+"' y= '"+cY+"' text-anchor='middle' fill='black' font-size='10px' font-family='Fira Mono' dy='0.5em'>"+
+    return etiquetaPorcentaje+"<text x= '"+coorX+"' y= '"+cY+"' text-anchor='middle' fill='white' font-size='13px' font-family='Fira Mono' dy='0.5em'>"+
     punto.dato+"</text>\n";
   }
   /**

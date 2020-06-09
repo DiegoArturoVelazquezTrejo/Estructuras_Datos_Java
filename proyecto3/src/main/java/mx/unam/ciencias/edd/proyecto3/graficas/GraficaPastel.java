@@ -47,6 +47,9 @@ public class GraficaPastel{
 
   /* Método que construye los puntos en la gráfica de acuerdo a los datos  */
   public GraficaPastel(Lista<Palabra> palabras, int totalApariciones){
+    if(palabras.getLongitud() > 10){
+      while(palabras.getLongitud() > 10) palabras.eliminaUltimo();
+    }
     puntos = new Lista<>();
     double x, y, angulo, angulo_pasado, angulo_etiqueta, xe, ye;
     float porcentaje;
@@ -81,7 +84,8 @@ public class GraficaPastel{
       etiqueta = dibujaEtiqueta(punto.dato, punto.porcentaje, punto.x_etiqueta, punto.y_etiqueta, i++);
       cadena+=linea+etiqueta;
     }
-    cadena+="</svg>\n";
+    cadena+=dibujaLinea(nuevoCentroX+radio, nuevoCentroY);
+    cadena+="\n</svg>\n";
     return cadena;
   }
   /**
@@ -98,7 +102,7 @@ public class GraficaPastel{
   * @return Círculo en Svg
   */
   public String dibujaCirculo(){
-    return "<circle cx="+ nuevoCentroX +" cy="+ nuevoCentroY +" r="+ radio +" stroke='red' stroke-width='3' fill='transparent' />\n";
+    return "<circle cx="+ nuevoCentroX +" cy="+ nuevoCentroY +" r="+ radio +" stroke='red' stroke-width='3' fill='#006CA8' />\n";
   }
   /**
   * Método para dibujar la etiqueta del dato
@@ -112,7 +116,7 @@ public class GraficaPastel{
   public String dibujaEtiqueta(String dato, double porcentaje, double x1, double y1, int i){
     if(i % 2 == 0) y1-=20;
     else y1+=20;
-    String[] colores = {"blue", "orange", "red", "pruple", "brown", "gray", "green", "pink"};
+    String[] colores = {"orange", "red", "#ECFF14","#FA4BEA", "#46FA5B", "pink", "white","#D2F2FF"};
     String color = colores[(int)(Math.random()*colores.length)];
     return "<text x= '"+x1+"' y= '"+y1+"' text-anchor='middle' fill='"+ color +"' font-size='15px' font-family='Fira Mono' dy='.3em'>"+
     dato+ " "+porcentaje+"% "+"</text>\n";
@@ -125,7 +129,7 @@ public class GraficaPastel{
   public String dibujaEncabezado(String tit){
     double coordY = nuevoCentroY-radio-50;
     double coordX = nuevoCentroX;
-    return "<text x= '"+coordX+"' y= '"+coordY+"' text-anchor='middle' fill='black' font-size='15px' font-family='Fira Mono' dy='0.5em'>"+
+    return "<text x= '"+coordX+"' y= '"+coordY+"' text-anchor='middle' fill='white' font-size='15px' font-family='Fira Mono' dy='0.5em'>"+
     tit+"</text>\n";
   }
 }
