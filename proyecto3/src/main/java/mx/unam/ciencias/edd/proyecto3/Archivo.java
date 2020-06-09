@@ -14,19 +14,23 @@ public class Archivo{
   private int totalPalabras;
   /* Nombre del archivo (referencia html)*/
   private String nombre;
+  /* Nombre original */
+  private String nombreOriginal;
   /**
   * Constructor de la clase Archivo
   * @param String nombre
   * @param Diccionario<String, Integer> palabras
   */
-  public Archivo(String nombre, Diccionario<String, Integer> diccionario){
+  public Archivo(String nombre, Diccionario<String, Integer> diccionario, String nombreOriginal){
     this.nombre = nombre;
-    this.totalPalabras = diccionario.getElementos();
+    this.totalPalabras = 0; 
     this.palabras = new Conjunto<String>();
+    this.nombreOriginal = nombreOriginal;
     // Tenemos que llenar al conjunto con los elementos del diccionario
     Iterator<String> iteradorLlaves = diccionario.iteradorLlaves();
     while(iteradorLlaves.hasNext()){
       String llave = iteradorLlaves.next();
+      totalPalabras+=diccionario.get(llave);
       palabras.agrega(llave);
     }
   }
@@ -38,6 +42,20 @@ public class Archivo{
     return this.nombre;
   }
   /**
+  * Método que regresa el nombre original
+  * @return String nombre original
+  */
+  public String getNombre(){
+    return this.nombreOriginal;
+  }
+  /**
+  * Método que regresa la cantidad de palabras que tiene el archivo
+  * @return int cantidad de palabras
+  */
+  public int getTotalPalabras(){
+    return this.totalPalabras;
+  }
+  /**
   * Método que compara dos archivos y te dice si tienen en común palabras con más de 7 dígitos
   * @param Archivo
   * @return boolean true si tienen al menos una palabra en común con más de 7 dígitos, false de lo contrario
@@ -47,6 +65,6 @@ public class Archivo{
     if(interseccion.getElementos() == 0) return false;
     for(String elemento : interseccion)
       if(elemento.length() >= 7) return true;
-    return false;  
+    return false;
   }
 }

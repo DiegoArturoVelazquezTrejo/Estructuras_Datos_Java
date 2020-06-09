@@ -11,7 +11,7 @@ import java.io.*;
 */
 public class GeneraIndexHTML{
   /* Variable que tiene el directorio donde se guardará todo el cuerpo del proyecto */
-  private String directorio;
+  private File directorioF;
   /* Lista con todos los archivos a analizar */
   private Lista<String> archivos;
   /* Archivos con su información */
@@ -22,16 +22,14 @@ public class GeneraIndexHTML{
   * @param String directorio
   */
   public GeneraIndexHTML(Lista<String> archivos, String dir){
-    this.directorio = dir;
     this.archivos = archivos;
+    this.directorioF = new File(dir);
   }
   /* Método main del proyecto que se encarga de analizar todo */
   public void generaAnalisis(){
-    // Veriticar si el directorio existe, de lo contrario, crearlo
-
-    // ME FALTA VER SI EXISTE EL DIRECTORIO O NO, Y ESCRIBIR !!!EN!!!! EL DIRECTORIO
-
-
+    // Si no existe el directorio, creamos el directorio
+    if(!directorioF.exists())
+      directorioF.mkdir();
     Diccionario<String, Integer> diccionario;
     File file;
     int i = 0;
@@ -40,29 +38,48 @@ public class GeneraIndexHTML{
       file = new File(archivo);
       if(file.exists()){
         diccionario = ConteoPalabras.contarApariciones(archivo);
-        ManejaPalabras ap = new ManejaPalabras(diccionario, 25);
+        ManejaPalabras ap = new ManejaPalabras(diccionario, 20);
         try{
-          System.out.println(diccionario.toString());
-
-          // AQUÍ TENEMOS QUE ESCRIBIR EL ARCHIVO DENTRO DEL DIRECTORIO!
-          LectorEntrada.escribirArchivo("archivo"+i+".html", ap.generaHTML());
-
-
+          FileWriter mw = new FileWriter(new File(directorioF, "archivo"+i+".html"));
+          mw.write(ap.generaHTML());
+          mw.close();
         }catch(IOException e){
           System.out.println("No se ha podido escribir el archivo: "+archivo);
         }
-        listaArchivos[i] = new Archivo("archivo"+i+".html", diccionario);
+        listaArchivos[i] = new Archivo("archivo"+i+".html", diccionario, archivo);
         i++;
-      }
+      }else
+          System.out.println("No existe el archivo: "+archivo);
+    }
+    escribeIndexHTML();
+  }
+  /**
+  * Método que escribe el cuerpo del Index.html
+  */
+  public void escribeIndexHTML(){
+    try{
+      //LectorEntrada.escribirArchivo("archivo"+i+".html", ap.generaHTML());
+      FileWriter mw = new FileWriter(new File(directorioF, "index.html"));
+      mw.write(generaIndexHTML());
+      mw.close();
+    }catch(IOException e){
+      System.out.println("No se ha podido escribir el archivo: index.html");
     }
   }
   /**
-  * Método que genera el cuerpo del Index.html
+  * Método que genera el index html
+  * @return representación en string del html del index.html
   */
-  public void generaIndexHtml(){
-
+  public String generaIndexHTML(){
+    String cadena = "<html>\n";
+    String link = "";
+    for(Archivo arch : listaArchivos){
+      link = "<a "+" href= "+arch.toString()+">"+ arch.getNombre()+" </a>";
+      cadena+="\n<h1>"+link+" tiene "+arch.getTotalPalabras()+"</h1>\n";
+    }
+    cadena+=generaGrafica();
+    return cadena+="</html>";
   }
-
   /**
   * Método para generar la gŕafica de los archivos (aquellos que tienen intersección de palabras)
   * @return String representación en SVG de la gráfica
