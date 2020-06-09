@@ -73,16 +73,20 @@ public class GeneraIndexHTML{
   * @return representación en string del html del index.html
   */
   public String generaIndexHTML(){
-    String cadena = "<html>\n";
+    String cadena = "<html>\n<head>\n<title>Proyecto 3</title>\n</head>\n<body>\n<h1>Proyecto 3: Analizador de Palabras</h1>\n"+
+    "\n<h3>Facultad de Ciencias, Ciencias de la Computación.</h3>\n<div>\n<h2>Archivos que se analizaron: </h2>\n<ol>\n";
+
     String link = "";
     for(Archivo arch : listaArchivos){
       if(arch != null){
         link = "<a "+" href= "+arch.toString()+">"+ arch.getNombre()+" </a>";
-        cadena+="\n<h1>"+link+" tiene "+arch.getTotalPalabras()+"</h1>\n";
+        cadena+="\n<li>"+link+" tiene "+arch.getTotalPalabras()+" palabras. </li>";
       }
     }
+    cadena+="\n\n</ol>\n</div>\n<div>\n<label>Gráfica Archivos</label>\n"+
+    "<p>Los archivos que se encuentren conectados en esta gráfica es porque tienen en común palabras con más de 7 dígitos.</p>\n";
     cadena+=generaGrafica();
-    return cadena+="</html>";
+    return cadena+="\n</div>\n</body>\n</html>";
   }
   /**
   * Método para generar la gŕafica de los archivos (aquellos que tienen intersección de palabras)
