@@ -22,7 +22,9 @@ public class ConteoPalabras{
       try{
         Diccionario<String, Integer> dic =  LectorEntrada.contarPalabras(archivo);
         return dic;
-      }catch(IOException e){}
-      throw new NoSuchElementException("No se ha encontrado el archivo");
+      }catch(IOException e){
+        System.out.println("El archivo: "+archivo+" no se ha podido leer");
+      }
+      return null; 
   }
 }

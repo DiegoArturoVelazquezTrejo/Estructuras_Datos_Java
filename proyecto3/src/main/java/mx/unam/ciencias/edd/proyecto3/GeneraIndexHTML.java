@@ -38,16 +38,18 @@ public class GeneraIndexHTML{
       file = new File(archivo);
       if(file.exists()){
         diccionario = ConteoPalabras.contarApariciones(archivo);
-        ManejaPalabras ap = new ManejaPalabras(diccionario, 20);
-        try{
-          FileWriter mw = new FileWriter(new File(directorioF, "archivo"+i+".html"));
-          mw.write(ap.generaHTML());
-          mw.close();
-        }catch(IOException e){
-          System.out.println("No se ha podido escribir el archivo: "+archivo);
+        if(diccionario != null){
+          ManejaPalabras ap = new ManejaPalabras(diccionario, 20);
+          try{
+            FileWriter mw = new FileWriter(new File(directorioF, "archivo"+i+".html"));
+            mw.write(ap.generaHTML());
+            mw.close();
+          }catch(IOException e){
+            System.out.println("No se ha podido escribir el archivo: "+archivo);
+          }
+          listaArchivos[i] = new Archivo("archivo"+i+".html", diccionario, archivo);
+          i++;
         }
-        listaArchivos[i] = new Archivo("archivo"+i+".html", diccionario, archivo);
-        i++;
       }else
           System.out.println("No existe el archivo: "+archivo);
     }
@@ -74,8 +76,10 @@ public class GeneraIndexHTML{
     String cadena = "<html>\n";
     String link = "";
     for(Archivo arch : listaArchivos){
-      link = "<a "+" href= "+arch.toString()+">"+ arch.getNombre()+" </a>";
-      cadena+="\n<h1>"+link+" tiene "+arch.getTotalPalabras()+"</h1>\n";
+      if(arch != null){
+        link = "<a "+" href= "+arch.toString()+">"+ arch.getNombre()+" </a>";
+        cadena+="\n<h1>"+link+" tiene "+arch.getTotalPalabras()+"</h1>\n";
+      }
     }
     cadena+=generaGrafica();
     return cadena+="</html>";
@@ -87,11 +91,11 @@ public class GeneraIndexHTML{
   public String generaGrafica(){
     DibujaGrafica<String> db = new DibujaGrafica<>();
     for(int i = 0; i < listaArchivos.length; i++)
-      db.agrega(listaArchivos[i].toString());
+      if(listaArchivos[i] != null) db.agrega(listaArchivos[i].getNombre());
     for(int i = 0; i < listaArchivos.length - 1; i++){
       for(int j = i + 1; j < listaArchivos.length; j++){
-        if(listaArchivos[i].comparaArchivo(listaArchivos[j]))
-          db.conecta(listaArchivos[i].toString(), listaArchivos[j].toString());
+        if(listaArchivos[i] != null && listaArchivos[j] != null && listaArchivos[i].comparaArchivo(listaArchivos[j]))
+          db.conecta(listaArchivos[i].getNombre(), listaArchivos[j].getNombre());
       }
     }
     return db.dibujaGrafica();
