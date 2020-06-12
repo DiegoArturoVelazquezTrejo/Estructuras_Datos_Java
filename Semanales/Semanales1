@@ -1,0 +1,90 @@
+Semanal 10
+
+Justifica por qué crear un montículo mínimo con n elementos es O(n) en tiempo.
+Porque se van agregando los elementos y reordenando en n log(n) que termina estando acotado bajo O(n).
+Al acomodar hacia abajo, vamos recorriendo hacia abajo el montículo, cada vez reduciendo más
+el número de comparaciones. Análogamente para acomoda hacia arriba.
+
+
+Sea i el índice de un vértice; ¿cuál es el índice de su hijo derecho?
+2i+2
+
+
+¿Cuál es la complejidad en tiempo de agregar un nuevo elemento a un montículo mínimo?
+Como cuando agregamos un elemento, es O(n), porque en el peor caso tenemos que acrecentar el tamaño del arreglo.
+
+
+Explica por qué es necesario que los elementos de nuestros montículos implementen la interfaz ComparableIndexable.
+Para poder acotar el comparable y así poder ponerles un índice sin necesidad de tener que crear clases que le extiendan, y así
+obtener el índice en tiempo constante.
+
+
+
+Describe brevemente el algoritmo AcomodaHaciaArriba.
+Tenemos que ir viendo si el padre es mayor que el hijo, en dado caso que lo sea tenemos que ir cambiando las posiciones de padre e hijo hasta que sea menor o hasta que llegue a la raíz.
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Semanal 11
+
+Da dos arreglos de bytes diferentes que generen una colisión en la función dispersión XOR
+{0F, 1E, 2D, 3C, 4B, 5A, 69, 78} y {4B, 5A, 69, 78, 0F, 1E, 2D, 3C}
+Cualquier par de arreglos de longitud 8, donde los primeros 4 elementos del primer arreglo son iguales a los últimos 4 elementos del segundo
+arreglo.
+
+¿Qué es una función de dispersión?
+Es una función que tiene como dominio los Naturales positivos y te manda a un conjunto N2k, en donde
+ese conjunto tiene naturales menores a 2**k.
+
+En la función de dispersión Bob Jenkins ¿Por qué no el algoritmo MEZCLA, que mezcla los bytes a, b y c no se puede implementar en Java
+con un método mezcla que reciba tres bytes?
+
+Porque en Java, a diferencia del lenguaje C, si le pasamos como parámetros las variables y las modificamos dentro del método,
+como no se pasaron por referencia, sino por valor, éstos únicamente son modificados en el método y después al terminar, siguen igual
+que como se ingresaron al método.
+
+Qué es una colisión en una función de dispersión?
+Es cuando tenemos dos elementos distintos del dominio, tales que su imagen coindice, es decir, f(a) = f(b).
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Semanal 12
+¿Cuál es la complejidad en tiempo de agregar una llave y un elemento a un diccionario?
+Es lineal ya que en el peor caso se tiene que aumentar el tamaño del arreglo del diccionario. Y es constante amortizado
+gracias a la función de dispersión (tiene que ser buena).
+
+¿Por qué una mala función de dispersión causa un deterioro en la complejidad en tiempo de los algoritmos en diccionarios?
+Porque podría mandar todos los elementos a una sola lista, entonces aumenta el número de colisiones y ahora la búsqueda o modificación
+del elemento se haría lineal.
+
+¿Qué es una carga en un diccionario?
+#Elementos/longitud o capacidad del arreglo.
+
+¿Qué es una colisión en un diccionario?
+Cuando dos llaves que son distintas se les asigna el mísmo índice en el arreglo y por eso terminan en la misma lista.
+
+Qué otros métodos existen para lidiar con colisiones?
+Mandar los elementos a entradas aledañas, o podría utilizarse la función de dispersión para dispersar múltiples veces.
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Semanal 13
+
+¿Cómo implementarías conjuntos en árboles rojinegros?
+únicamente tendríamos que corroborar que el elemento que agreguemos no se encuentr en el árbol,
+de ahí en fuera, lo demás sale de la funcionalidad de los árboles.
+
+¿Cuál es la complejidad en tiempo de agregar un elemento a un conjunto?
+O(n) porque adquiere la misma complejidad de agrega que el diccionario (en el peor caso) y constante amortizado.
+
+Describe brevemente como implementarías un conjunto ordenado
+Extendemos del ÁrbolRojinegro para poder emular el orden de los elementos del conjunto y únicamente mantenemos
+registro del elemento máximo y del elemento mínimo (al momento de eliminar y agregar del árbol).
+
+Los conjuntos tienen las mejores complejidades en tiempo para colecciones de todas las estructuras de datos,
+qué sacrificamos para obtenerlas?
+Sacrificamos el orden de los elementos dentro del Conjunto y puede ser algo de espacio, una constante oculta, sin embargo, conserva
+sus complejidades en espacio lineales.
+
+Usando conjuntos, ¿Cómo eliminas la necesidad de tener una propiedad de color en los vértoces para implementar DFS o BFS?
+Utilizamos un conjunto en donde agregamos todos los vértices que coincidan en color, ejemplo (rojo) y análogamente para el color negro. 
