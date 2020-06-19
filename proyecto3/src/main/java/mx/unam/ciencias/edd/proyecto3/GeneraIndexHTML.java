@@ -29,7 +29,7 @@ public class GeneraIndexHTML{
   public void generaAnalisis(){
     // Si no existe el directorio, creamos el directorio
     if(!directorioF.exists())
-      directorioF.mkdir();
+      directorioF.mkdirs();
     Diccionario<String, Integer> diccionario;
     File file;
     int i = 0;
@@ -38,7 +38,7 @@ public class GeneraIndexHTML{
       file = new File(archivo);
       if(file.exists()){
         diccionario = ConteoPalabras.contarApariciones(archivo);
-        if(diccionario != null){
+        if(diccionario != null && diccionario.getElementos() > 0){
           ManejaPalabras ap = new ManejaPalabras(diccionario, 20);
           try{
             FileWriter mw = new FileWriter(new File(directorioF, "archivo"+i+".html"));
