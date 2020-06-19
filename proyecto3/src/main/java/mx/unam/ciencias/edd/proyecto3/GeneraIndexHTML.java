@@ -66,6 +66,8 @@ public class GeneraIndexHTML{
       mw.close();
     }catch(IOException e){
       System.out.println("No se ha podido escribir el archivo: index.html");
+    }catch(Exception n){
+	System.out.println("Ha ocurrido un error"); 
     }
   }
   /**
