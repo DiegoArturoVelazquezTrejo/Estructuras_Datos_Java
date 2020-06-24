@@ -1,0 +1,115 @@
+Qué es un tipo de dato abstracto?
+Se tenían datos y operaciones relacionadas con los datos. A parte, 
+Un ente matemático que es abstracto y del cual al implementarse se define
+una estructura de datos.
+
+Qué es una Estructura de Datos?
+Es una implementación de un tipo de dato abstracto.
+Que termina siendo una clase.
+
+Define qué es una lista.
+Una lista es una estructura de datos que tiene una cabeza y una cola, asociadas.
+Es una colección de nodos que se apuntan linealmente entre sí mismos. Si no tiene elementos,
+la cabeza = cola = null. Si tiene un elemento, cabeza = cola, y si tiene más elementos,
+tienes la sucesión de cabeza a cola, con una longitud entera positiva.
+
+Qué implica que una clase sea genérica en Java?
+Una clase genérica está acotada a un tipo una vez que se determina, nos permite poder
+utilizar las clases con distintos tipos de datos.
+
+Dónde se implementan los genéricos en Java?
+Se implementan en el compilador.
+
+Enuncia el patró de diseño Iterator
+Es un iterable que te da un iterador para iterar al iterable.
+
+Qué características de la Orientación a Objetos hace necesario utilizar el patró Iterator?
+El Encapsulamiento de Datos
+
+Qué método específico tienen las instancias de Iterable en Java?
+iterator()
+
+Qué métodos específicos tienen las instancias de Iterator en Java?
+hasNext()
+next()
+
+En la clase de Lista, qué tienen en común los métodos agrega, getLongitud, eliminaPrimero y que no tienen
+métodos de reversa, elimina() e inserta()
+Los métodos de agrega, getLongitud, eliminaPrimero son de complejidad Constante, i.e. O(1).
+Reversa, elimina e inserta tienen que recorrer la lista, ergo, sus complejidades son lineales.
+Por lo tanto, tienen complejidad distinta el primer conjunto de métodos del otro.
+
+Qué quiere decir g(n) e O(f(n))?
+Quiere decir que g(n) es de orden de f(n), y por definición que existen c, n0 en los reales
+tales que g(n) <= c*f(n) para todo n >= n0.
+
+Qué es la Complejidad en tiempo de un Algoritmo?
+La complejidad en tiempo indica el tiempo que tarda un algoritmo en hacer lo que tenga que hacer.
+En unidades de tiempo, cuántas instrucciones realiza en una unidad de tiempo.
+
+Dado el arreglo, desarrolla el polinomio de redireccionamiento para acceder al elemento en [2][1][3]
+Se define como la Suma de i=1 hasta n de (jn) * multiplicación desde 5+1 hasta n de (sn)
+2(2+4)+1*4+3
+
+Cuál es la complejidad en tiempo del algoritmo Selection Sort?
+O(n**2)
+Cuál es la complejidad en tiempo del algoritmo QuickSort?
+En el peor de sus casos O(n**2)
+En tiempo promedio es de O(n log n)
+
+Dado el algoritmo Selection Sort, qué invariante se utiliza para demostrar que el ciclo exterior
+es correcto?
+
+Sea i el índice del primer for, todos los elementos que están antes del arreglo[i] están ordenados.
+
+Demuestra que log2 (n!) e O(n log n)
+Sea
+log 2 (n (n -1) (n-2) (n-3))
+log 2 n + log 2 (n-1) + log 2 (n -2) + ... + log 2 (1)<= log 2 (n) + log 2 (n) + ... + log 2 (n) = n log 2 n.
+
+Explica de forma informal por qué el ordenar una colección de n elementos utilizando comparaciones
+toma al menos O (n log n).
+
+Para comparlos terminamos haciendo un arbol binario de comparaciones entre las variables de la colección,
+por lo que termina estando acotado bajo n log n que corresponde a la altura. Teniendo un árbol con n elementos,
+demostrando que log 2 (n!) <= c n log 2 n y análogamente n log 2 n <= log 2 (n!), entonces llegamos a que
+log 2 n! es del orden O(n log n).
+
+Cuál es la complejidad en tiempo del algoritmo QuickSort?
+En el peor caso O(n**2)
+En el mejor caso Omega(n log n)
+
+Cuál es la complejidad en espacio del algoritmo SelectionSort, sin tomar en cuenta
+el espacio utilizado por el arreglo de entrada?
+Complejidad constante, i.e. O(1) en espacio.
+
+Demuestre que 2**(k+1) -1 = Suma[2**i]{i=0, k}.
+Demostración por inducción:
+Caso base -> 2 ** (0+1) -1 = 1 = 2 ** 0
+Ergo, concluímos que es válido para n = 0.
+Hipótesis de Inducción:
+Suponemos que 2**(k+1) - 1 = Suma[2**i]{i=0, k}.
+Por demostrar que es válido para k+1
+P.D. 2**((k+1)+1)-1 = Suma[2**i]{i=0, k+1}.
+Nótese que
+Suma[2**i]{i=0, k+1} = Suma[2**i]{i=0, k} + 2**(k+1)
+                     = 2**(k+1)-1 + 2**(k+1)   Por hipótesis de inducción
+		     = 2 * 2**(k+1) - 1
+		     = 2**(k+1+1) - 1
+		     = 2**((k+1)+1)-1 Como pretendíamos.
+Ergo, concluímos que se cumple la proposición para todo k en los naturales.
+
+Un árbol Binario lleno es el que su nivel i tiene 2 ** i vértices, distintos del vacío.
+Demuestra que un árbol lleno con n vértices tiene (n+1)/2 hojas.  
+
+¿Qué estructura de datos auxiliar necesitamos para implementar BFS en árboles binarios?
+Utilizamos una Cola
+
+Define qué es un Árbol Binario Completo.
+Un arbol binario completo es una estructura de datos en donde todos los niveles están llenos
+excepto el último. Todos los hoyos que puede tener siempre estarán en el último nivel,
+al extremo derecho del nivel.
+
+Define qué es un Árbol Binario Ordenado.
+Sea T un árbol binario, este es ordenado si para todo vértice u de Ti(v) y para todo vértice w de
+Td(v)se cumple la desigualdad de u <= v y v <= w. 
