@@ -54,4 +54,7 @@
 
 #### Proyecto 2
   - Graficador de estructuras de datos a svg
+  
+#### Proyecto 3
+  - Generador de informes para un archivo de texto: contador de palabras, gráficas de análisis y despligue en página web. 
 
