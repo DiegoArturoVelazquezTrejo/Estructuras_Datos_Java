@@ -34,6 +34,20 @@
 #### Práctica 6
   - *Gráficas (Graphs)*
 
+#### Práctica 7
+  - *Montículos Mínimos (Minheaps)*
+  
+#### Práctica 8
+  - *Trayectoria de peso mínimo (Dijkstra)*  
+
+#### Práctica 9
+  - *Funciones de Dispersión (HasFunctions)*
+
+#### Práctica 10
+  - *Diccionarios (Hashmaps)*
+  
+#### Práctica 11
+  - *Conjuntos y gráficas mejoradas (Sets and Graphs with hashmaps)*
 ----
 #### Proyecto 1
   - Ordenador de lineas en un texto
